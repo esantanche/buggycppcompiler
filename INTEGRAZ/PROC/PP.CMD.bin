@@ -1,0 +1,10 @@
+rem -----------------------------------------------------
+rem Command file per invocare il precompilatore CPP
+rem Out su : stesso nome del file ed estensione .i
+rem -----------------------------------------------------
+rem Utile per debugging
+rem -----------------------------------------------------
+setlocal
+@set MYINC=  -IE: -IC:\INTEGRAZ\SUBSYS\INTEGRAZ\INCLUDE -IC:\INTEGRAZ\FASATURA -I..\INCLUDE -IC:\INTEGRAZ\SUBSYS\SIPAX\INCLUDE -IC:\BCOS2\INCLUDE -IC:\BCOS2\INCLUDE -IC:\INTEGRAZ\SUBSYS\SCP\INCLUDE -IC:\INTEGRAZ\SUBSYS\OOLIB\INCLUDE -IC:\SQLLIB -I.
+cpp %MYINC% %1
+

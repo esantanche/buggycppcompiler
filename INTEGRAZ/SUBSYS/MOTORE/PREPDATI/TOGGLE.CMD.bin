@@ -1,0 +1,27 @@
+@echo off
+ECHO ***********************************
+ECHO TOGGLE AMBIENTE REALE / SOLO DATI ESTRATTI
+ECHO ***********************************
+ECHO Si suppone che siano gi… stati estratti i dati!
+if NOT %USADATIESTRATTI%. == . goto RESET
+:SET
+if exist \file_t\OUT_ALL\*.* goto Bad
+rename \file_t\out out_all
+xcopy  \file_t\out_all\*.xtr \file_t\out\*.*
+ECHO Impostato ambiente di lavoro (solo dati estratti)
+set USADATIESTRATTI=SI
+goto fine
+:RESET
+if not exist \file_t\OUT_ALL\*.* goto Bad
+echo pronto per resettare, cancellando \file_t\out\*.* 
+echo premere un tasto per continuare
+pause
+del \file_t\out\*.* /N
+rd \file_t\out
+rename \file_t\out_all out
+ECHO Impostato ambiente effettivo
+set USADATIESTRATTI=
+goto fine
+:BAD
+echo Errore : Disallineamento tra directory e variabile USA_DATI_ESTRATTI
+:FINE

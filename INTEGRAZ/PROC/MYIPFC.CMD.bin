@@ -1,0 +1,21 @@
+/*  Compilazione standard dell' HELP */
+/*
+   -> Si sposta sulla directory ..\HELP
+   -> Chiama IPFCPREP compilando su file temporaneo
+   -> Chiama IPFC
+   -> Cancella il file temporaneo
+*/
+arg FileHtx FileTmp WrongParms
+TRACE ON
+SAY "MYipfc" FileHtx FileTmp 
+"set include=..\HELP"
+"ipfcprep " FileHtx FileTmp "-D IPF"
+rc1 = rc
+say "rc IPFCPREP = " rc1
+if rc1 then exit rc1
+"ipfc " FileTmp "/W1"
+rc1 = rc
+say "rc IPFC = " rc1
+"del" FileTmp
+exit rc1
+

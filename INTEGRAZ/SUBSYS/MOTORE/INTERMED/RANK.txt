@@ -1,0 +1,339 @@
+  112135  1Roma Termini                       
+   18 23  2Bologna Centrale                   
+   75 94  3Milano Centrale                    
+   73 92  4Venezia Mestre                     
+   59 72  5Firenze S. M. Novella              
+ 1830297  6Venezia S. Lucia                   
+  139166  7Torino Porta Nuova                 
+   62 76  8Genova Piazza Principe             
+    4  5  9Alessandria                        
+  216295 10Genova Brignole                    
+   81101 11Napoli Centrale                    
+   60 73 12Foggia                             
+   96117 13Pisa Centrale                      
+   84104 14Novara                             
+   90110 15Padova                             
+  235338 16Napoli Mergellina                  
+  281312 17Palermo Centrale                   
+  176221 18Roma Trastevere                    
+  119143 19Salerno                            
+   11 15 20Bari Centrale                      
+  184253 21Milano Lambrate                    
+  152179 22Verona Porta Nuova                 
+  156184 23Villa S. Giovanni                  
+   21 26 24Brescia                            
+    8 11 25Asti                               
+  165200 26Fidenza                            
+  187257 27Firenze Rifredi                    
+   79 98 28Monza                              
+   94115 29Piacenza                           
+  122146 30Genova Sampierdarena               
+  154182 31Vicenza                            
+   46 55 32Chivasso                           
+  144171 33Treviso Centrale                   
+   92113 34Pavia                              
+  125150 35Savona                             
+ 2298158 36La Spezia Centrale                 
+    5  6 37Ancona                             
+   66 83 38Lecco                              
+ 2031127 39Reggio Di Calabria Centrale        
+   50 62 40Cremona                            
+  146173 41Udine                              
+  117140 42Lamezia Terme Centrale             
+   35 42 43Caserta                            
+ 2569 45 44Pescara Centrale                   
+  158186 45Voghera                            
+   16 20 46Bergamo                            
+   28 34 47Cancello                           
+  174217 48Paola                              
+   91112 49Parma                              
+  142169 50Tortona                            
+   47 56 51Ciampino                           
+ 1238198 52Livorno Centrale                   
+   80100 53Mortara                            
+  111134 54Milano Rogoredo                    
+  106129 55Rho                                
+  140167 56Torre Annunziata Centrale          
+  107130 57Rimini                             
+  272162 58Termini Imerese                    
+   61 75 59Gallarate                          
+   72 91 60Messina Centrale                   
+  264 67 61Empoli                             
+  145172 62Trofarello                         
+  151178 63Vercelli                           
+   56 69 64Faenza                             
+   88108 65Orte                               
+  134161 66Taranto                            
+   14 18 67Battipaglia                        
+   76 95 68Modena                             
+  115138 69Rovigo                             
+  190260 70Aversa                             
+  123147 71Santhia                            
+  217299 72Bolzano Bozen                      
+   39 46 73Catanzaro Lido                     
+  263119 74Ponte Galeria                      
+  207283 75Cuneo                              
+   31 37 76Carmagnola                         
+   85105 77Novi Ligure                        
+  303329 78Catania Centrale                   
+  147174 79Carnate-Usmate                     
+  199272 80Fossano                            
+  289149 81Savigliano                         
+   12 16 82Barletta                           
+  265 32 83Campiglia Marittima                
+   58 71 84Ferrara                            
+  197270 85Prato                              
+  302321 86Reggio Di Calabria Lido            
+   34 41 87Casarsa                            
+  163196 88Castelfranco Veneto                
+   68 86 89Lucca                              
+  143170 90Treviglio                          
+  177224 91Trento                             
+  208284 92Conegliano                         
+  322  8 93Arezzo                             
+  100123 94Portogruaro Caorle                 
+ 2355294 95Chiasso                            
+   23 28 96Brindisi                           
+   45 54 97Chiusi-Chianciano Terme            
+  182240 98Trieste Centrale                   
+  195266 99Sacile                             
+   41 49100Cavallermaggiore                   
+  269181101Viareggio                          
+   32 39102Casale Monferrato                  
+   53 65103Domodossola                        
+  178226104Monfalcone                         
+  173215105Arquata Scrivia                    
+   49 58106Codogno                            
+   83103107Nocera Inferiore                   
+   44 53108Ceva                               
+  101124109Potenza Inferiore                  
+  185254110Milano Certosa                     
+  230320111Messina Marittima                  
+   70 89112Mantova                            
+    7  9113Arona                              
+  128154114Sibari                             
+  198271115Mondovi'                           
+  193264116Pontedera Casciana Terme           
+  246 60117Colico                             
+  234261118Villa Literno                      
+  267118119Pistoia                            
+   15 19120Benevento                          
+  221219121Cosenza                            
+  252340122Rosarno                            
+   97120123Ponte S. Pietro                    
+   26 31124Calolziocorte-Olginate             
+  181239125Cervignano Aquileia-Grado          
+  148175126Valenza                            
+  261218127Castiglione Cosentino              
+   20 25128Bra                                
+  114137129Rovato                             
+ 1743326130Lodi                               
+   37 44131Castel Bolognese-Riolo Terme       
+   74 93132Metaponto                          
+   98121133Civitanova Marche-Montegranaro     
+  343397134Cagliari                           
+   57 70135Falconara Marittima                
+   93114136Pescara Porta Nuova                
+  169210137Pontassieve                        
+  204280138Siena                              
+ 1196145139S. Benedetto Del Tronto            
+ 3025248140Cassino                            
+   64 78141Giulianova                         
+  138165142Terontola-Cortona                  
+  183249143Formia                             
+  262 74144Foligno                            
+    1  1145Acqui Terme                        
+   77 96146Monselice                          
+  103126147Ravenna                            
+  192263148Ventimiglia                        
+ 2688292149Aosta                              
+  254241150Campoleone                         
+  136163151Termoli                            
+  301205152Motta Di Livenza                   
+  219303153Fortezza Franzensfeste             
+  137164154Terni                              
+  297201155Bassano Del Grappa                 
+  133160156Sulmona                            
+  164197157Montebelluna                       
+  266 50158Cecina                             
+   55 68159Fabriano                           
+  118141160S. Giuseppe Di Cairo               
+   25 30161Vairano-Caianello                  
+  256159162Spinazzola                         
+ 3013 33163Campobasso                         
+   33 40164Casalpusterlengo                   
+  300243165S. Giorgio Di Nogaro               
+  194265166Civitavecchia                      
+  200273167Castelvetro                        
+   63 77168Gioia Del Colle                    
+  260 14169Avezzano                           
+  126152170Seregno                            
+   48 57171Cittadella                         
+  212288172Biella S. Paolo                    
+  294208173Fornovo                            
+  166202174Nogara                             
+   95116175Piadena                            
+  232344176Gela                               
+  310225177Mezzocorona                        
+  109132178Roccasecca                         
+  130156179Siracusa                           
+  162195180Camposampiero                      
+  172214181Aulla                              
+  332192182Lecce                              
+   71 90183Mercato S. Severino                
+  113136184Romagnano Sesia                    
+  141168185Torreberetti                       
+  171213186Gemona Del Friuli                  
+  229318187Villamassargia-Domusnovas          
+   69 87188Lugo                               
+  124148189Sarzana                            
+  356282190Trapani                            
+   10 13191Avellino                           
+  325319192Viterbo Porta Fiorentina           
+  213289193Rovasenda                          
+   36 43194Castagnole Delle Lanze             
+  108131195Roccapalumba-Alia                  
+ 1964300196Brennero Brenner                   
+  159188197Casale Popolo                      
+  116139198Caltanissetta Xirbi                
+  120144199Saluzzo                            
+  160189200Castelrosso                        
+ 2145298201Belluno                            
+    6  7202Aragona-Caldare                    
+   19 24203Borgomanero                        
+   86106204Oleggio                            
+  127153205Sesto Calende                      
+  209285206Ponte Nelle Alpi Polpet            
+  211287207Molteno                            
+  287  2208Airasca                            
+   22 27209Bressana Bottarone                 
+  240244210Palmanova                          
+   82102211Nizza Monferrato                   
+  239247212Russi                              
+  282228213Gorizia Centrale                   
+  295111214Palazzolo Sull'oglio               
+ 1672 48215Cormons                            
+   27151216Colleferro Segni Paliano           
+ 2604337217Lesegno                            
+   87107218Olmeneta                           
+  188258219Priverno Fossanova                 
+    9 12220Attigliano-Bomarzo                 
+   67 84221Legnago                            
+  250310222Agrigento Bassa                    
+  290  4223Albate-Camerlata                   
+   24 29224Broni                              
+  293 82225Lavezzola                          
+ 2733401226Limone                             
+  110133227Rocchetta S. Antonio-Lacedonia     
+  129155228Sicignano Degli Alburni            
+  153180229Vezzano Ligure                     
+  220307230Poggibonsi-S. Gimignano            
+ 2040305231Tarvisio Centrale                  
+ 2797125232Premosello-Chiovenda               
+  350399233Olbia Isola Bianca                 
+  121250234Sezze Romano                       
+  210286235Fano                               
+  215293236Genova Bolzaneto                   
+  259 38237Carpinone                          
+  353336238Locri                              
+    3  3239Albacina                           
+  291 47240Cava Carbonara                     
+ 2585328241Sanfre                             
+   29 35242Canicatti'                         
+   99122243Porto D'ascoli                     
+  271142244S. Stefano Di Magra                
+  331191245Francavilla Fontana                
+ 2078304246S. Candido Innichen                
+ 2331333247Pontecurone                        
+   52 64248Cuzzago                            
+  155183249Vignale                            
+  180238250Susegana                           
+  189259251Minturno Scauri                    
+  227209252Borgo S. Lorenzo                   
+ 1085 80253Isernia                            
+  512309254Cerignola Campagna                 
+ 1950302255Chiusa Klausen                     
+  161190256S. Zeno-Folzano                    
+  245 81257Laveno Mombello                    
+  292246258Granarolo Faentino                 
+  175220259Capranica-Sutri                    
+  253339260Tropea                             
+  299268261Pinzano                            
+ 1185330262Aprilia                            
+  191262263Grisignano Di Zocco                
+  222311264Castelvetrano                      
+ 2175267265Maniago                            
+   78 97266Montepescali                       
+  157185267Vinchiaturo                        
+  223324268Bivio D'aurisina                   
+  228322269Borgo S. Dalmazzo                  
+ 1718 88270Macerata                           
+   43 52271Cervaro                            
+  150177272Velletri                           
+ 3005222273Cecchina                           
+  201276274Ostiglia                           
+  236199275Vada                               
+ 2039157276Sparanise                          
+  105128277Reggio Di Calabria Marittima       
+  170211278Isola Della Scala                  
+   54 66279Dossobuono                         
+   13 17280Bastia Mondovi                     
+   51 63281Cuneo Gesso                        
+  149176282Lentini Diramazione                
+  167206283S. Vito Al Tagliamento             
+ 1595316284Caltagirone                        
+   17 22285Bicocca                            
+   30 36286Cantalupo                          
+   42 51287Cerea                              
+  257 59288Codola                             
+ 1597204289Dicomano                           
+ 2073301290Brunico Bruneck                    
+ 2141325291Feltre                             
+  842343292Niscemi                            
+  268 10293Asciano                            
+  249278294Noto                               
+ 1667335295Buonconvento                       
+ 1980223296Primolano                          
+  244203297Piedimulera                        
+ 2168212298Spilimbergo                        
+ 2574317299Dittaino                           
+ 2852334300Bagni Di Lucca                     
+  251341301Eccellente                         
+  296296302Lonigo                             
+ 1580245303Cotignola                          
+  226315304Alcantara                          
+  305 85305Licata                             
+  319274306Pracchia                           
+ 1493275307Vernio-Montepiano-Cantagallo       
+  225314308Salemi-Gibellina                   
+  186255309Fiumetorto                         
+  214290310Golfo Aranci                       
+ 1060207311Noceto                             
+  247291312Busca                              
+ 1905327313Badia Polesine                     
+   38 99314Moretta                            
+ 2806 21315Beura-Cardezza                     
+ 1090342316Mileto                             
+  203279317Monte Antico                       
+  231332318Civitavecchia M.ma                 
+ 1623331319Serravalle Pistoiese               
+  351398320Porto Torres P. Colombo            
+ 1792256321Buttapietra                        
+  179232322Villa Opicina                      
+  237 61323Collesalvetti                      
+  202277324Motta S. Anastasia                 
+ 2035269325Milano Porta Romana                
+   65227326Santa Croce Di Trieste             
+  196323327Aurisina                           
+  224313328Porto Empedocle                    
+  304306330Livorno Calambrone                 
+  205281331Alcamo                             
+ 3401804332Esc3mar                            
+ 3402806333Esc3mar                            
+ 3403807334Esc3mar                            
+ 3404808335Esc4mar                            
+ 3405801336Esc5mar                            
+ 3406802337Esc5mar                            
+ 3407803338Esc5mar                            
+ 3408805339Esc5mar                            
+

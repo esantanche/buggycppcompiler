@@ -1,0 +1,260 @@
+/* Estrazione informazioni compatte da output di infotrasporti */
+arg fileN
+
+outinfotrasporti = fileN".CIP"
+outmotore = FileN".OUT"
+fileconfronto = FileN".CFR"
+
+MeseInChiaro.1  = "Gennaio"
+MeseInChiaro.2  = "Febbraio"
+MeseInChiaro.3  = "Marzo"
+MeseInChiaro.4  = "Aprile"
+MeseInChiaro.5  = "Maggio"
+MeseInChiaro.6  = "Giugno"
+MeseInChiaro.7  = "Luglio"
+MeseInChiaro.8  = "Agosto"
+MeseInChiaro.9  = "Settembre"
+MeseInChiaro.10 = "Ottobre"
+MeseInChiaro.11 = "Novembre"
+MeseInChiaro.12 = "Dicembre"
+
+if length(fileconfronto) < 4 then do
+   say "Utilizzo : EXTR1 FileName "
+   say "Confronta FileName.CIP con FileName.Out mettendo il risultato in FileName.Cfr"
+   return 99
+end  /* Do */
+if Esiste( outinfotrasporti ) == "" then do
+   say "ERRORE: Non esiste il file" outinfotrasporti
+   return 99
+end  /* Do */
+if Esiste( outmotore ) == "" then do
+   say "ERRORE: Non esiste il file" outmotore
+   return 99
+end  /* Do */
+if length(outinfotrasporti) > 4 then call DoInfoT  /* <= 4 non puo' essere: solo un placeholder */
+if length(outMotore       ) > 4 then call DoMotore /* <= 4 non puo' essere: solo un placeholder */
+call CopyModify
+say "Lancio EPM e macro di confronto"
+'start epm' fileConfronto outmotore outinfotrasporti "'POSTME RX EXTR1'"
+return 0
+
+DoInfot:
+out = "\tmp\extr1.out"
+"@del" out "2>&1 >nul"
+say "Estrazione dati output infotrasporti, file=" outinfotrasporti
+OraPartenza = "$"
+TempoTrascorso = "$"
+outinfotrasporti = strip(outinfotrasporti)
+passamezzanotte = 0
+do while lines( outinfotrasporti ) > 0
+   Linea = linein( outinfotrasporti )
+   if Pos( "===>",Linea) > 0 then do
+      parse VALUE linea WITH StzDa "===>" StzA
+      StzDa = strip(StzDa)
+      StzA = strip(StzA)
+      Dummy = lineout(Out, "========================================================================")
+      Dummy = lineout(Out, "Da:" StzDa "A:" StzA )
+      Linea = linein( outinfotrasporti )
+      Dummy = lineout(Out, Linea)
+      Dummy = lineout(Out, "========================================================================")
+      OraPartenza = "$"
+      Cambi = ""
+      Treni = ""
+      LastCambio = ""
+   end  /* Do */
+   else do
+      Word1 = Strip(Word(linea,1))
+      Numeric = left(Word1,1)>= '0' & left(Word1,1) <= '9'
+      if Numeric then do
+         if left(Linea,4) == "    " & OraPartenza <> "$" then do
+            parse value linea with OraArrivo Stazione
+            passamezzanotte  = passamezzanotte + GestioneMezzanotte( OraPartenza , OraArrivo )
+            Stazione = Strip(Stazione)
+         end  /* Do */
+         else if Stazione <> LastCambio & Stazione <> StzDa & Stazione <> StzA & word(Stazione,1) <> StzDa & word(Stazione,1) <> StzA then do
+            LastCambio = Stazione
+            Cambi = Cambi Stazione
+         end  /* Do */
+         if right(Word1,1) == ')' then do
+            TrenoAttuale = word(linea,2)
+            Linea = linein( outinfotrasporti )
+            parse value linea with Ora Stazione
+            Stazione = Strip(Stazione)
+            if OraPartenza = "$" then OraPartenza = Ora
+            if Stazione <> LastCambio & Stazione <> StzDa & Stazione <> StzA & word(Stazione,1) <> StzDa & word(Stazione,1) <> StzA then do
+               if LastCambio <> "" then Treni = Treni "Urb"
+               LastCambio = Stazione
+               Cambi = Cambi Stazione
+            end  /* Do */
+            Treni = Treni TrenoAttuale
+         end  /* Do */
+      end  /* Do */
+      else if OraPartenza <> "$" then do
+         if Stazione <> LastCambio & Stazione <> StzDa & Stazione <> StzA & word(Stazione,1) <> StzDa & word(Stazione,1) <> StzA then do
+            LastCambio = Stazione
+            Cambi = Cambi Stazione
+         end  /* Do */
+         OraPartenza = Normalizza(OraPartenza)
+         OraArrivo   = Normalizza(OraArrivo)
+         TempoTrascorso = TempoTr(OraPartenza, OraArrivo)
+         if passamezzanotte > 0 & GestioneMezzanotte( OraPartenza , OraArrivo ) = 0  then do
+            TempoTrascorso =  "1 gg "strip(TempoTrascorso)
+         end /* do */
+         TempoTrascorso = Normalizza(TempoTrascorso)
+         passamezzanotte = 0
+         Dummy = lineout(Out, OraPartenza "->" OraArrivo TempoTrascorso Treni)
+         OraPartenza = "$"
+         Cambi = ""
+         Treni = ""
+         LastCambio = ""
+      end  /* Do */
+   end  /* Do */
+end
+Dummy = lineout(Out)
+return
+
+DoMotore:
+out2 = "\tmp\extr1.mot"
+"@del" out2 "2>&1 >nul"
+say "Estrazione dati output Motore, file=" OutMotore
+OraPartenza = "$"
+OutMotore = strip(OutMotore)
+Datarel = ""
+TempoTrascorso = "$"
+do while lines( outmotore ) > 0
+   Linea = linein( outmotore )
+   if Pos( "Relazione:",Linea) > 0 then do
+      parse VALUE linea WITH Dummy "Relazione:" Dummy2 ":" StzDa "->" StzA
+      StzDa = strip(StzDa)
+      StzA = strip(StzA)
+      Dummy = lineout(Out2, "========================================================================")
+      Dummy = lineout(Out2, "Da:" StzDa "A:" StzA )
+      Dummy = lineout(Out2, DataRel)
+      Dummy = lineout(Out2, "========================================================================")
+      OraPartenza = "$"
+      Cambi = ""
+      Treni = ""
+      LastCambio = ""
+   end  /* Do */
+   else if Pos("Data ricerca",Linea ) > 0 then do
+      parse VALUE linea WITH Dummy "Data ricerca" GGSett " " Datarel
+      parse VALUE Datarel with GG"/"mm"/"aa
+      Datarel = GGSett GG MeseInChiaro.mm aa
+   end /* do */
+   else if Word(Linea,3) == "MV"  then do
+      Cambi = Cambi LastCambio
+      if Pos("Urbano", Linea) > 0 then do
+         parse value linea with dummy "Out" Linea2
+         Treni = Treni "Urb"
+      end  /* Do */
+      else do
+         parse value linea with dummy "Treno" Treno "Out" Linea2
+         Treni = Treni word(Treno,1)
+      end  /* Do */
+      LastCambio = substr(strip(Linea2),1,7)
+   end  /* Do */
+   else if Word(Linea,3) == "Tratta" & Word(Linea,5) == "Treno"  then do
+      Cambi = Cambi LastCambio
+      if Pos("Urbano", Linea) > 0 then do
+         parse value linea with dummy "Out" Linea2
+         Treni = Treni "Urb"
+      end  /* Do */
+      else do
+         parse value linea with dummy "Treno" Treno "Out" Linea2
+         Treni = Treni word(Treno,1)
+      end  /* Do */
+      LastCambio = substr(strip(Linea2),1,7)
+   end  /* Do */
+   else if Word(Linea,3) == "Treno"  then do
+       NOP /* Indica i servizi del treno */
+   end /* do */
+   else if Word(Linea,3) == "Servizi"  then do
+       NOP /* Indica i servizi del treno */
+   end /* do */
+   else if Word(Linea,3) == "==>"  then do
+       NOP /* Indica le note del treno */
+   end /* do */
+   else if Word(Linea,3) == "..."  then do
+       NOP /* Indica le note del treno */
+   end /* do */
+   else if OraPartenza <> "$" then do
+      OraPartenza = Normalizza(OraPartenza)
+      OraArrivo   = Normalizza(OraArrivo)
+      /* TempoTrascorso = TempoTr(OraPartenza, OraArrivo) */
+      TempoTrascorso = Normalizza(TempoTrascorso)
+      Dummy = lineout(Out2, OraPartenza "->" OraArrivo TempoTrascorso Treni)
+      OraPartenza = "$"
+      Cambi = ""
+      Treni = ""
+      LastCambio = ""
+   end  /* Do */
+   if Pos( "Soluzione ====== Parte",Linea) > 0 then do
+      parse VALUE linea WITH Dummy "Parte" OraPartenza "Arriva" OraArrivo
+      Linea = linein( outmotore )
+      parse VALUE linea WITH Dummy "Tempo Totale =" TempoTrascorso "Attesa" Dummy2
+   end  /* Do */
+end
+Dummy = lineout(Out2)
+return
+
+Normalizza:
+ arg ora
+ ora = translate(strip(ora))
+ giorni = 0
+ if words(ora) > 1 then do
+    if words(ora) > 2 & Word(ora,2) == "GG" then do
+       giorni = word(ora,1)
+       ora = word(ora,3)
+    end /* do */
+    else if left(Word(ora,2),1) >= "0" & left(Word(ora,2),1) <= "9" then do
+       ora = word(ora,1)word(ora,2)
+    end /* do */
+ end /* do */
+ Ora = left(Ora,5)
+ Ora = TRANSLATE(Ora, ".",":")
+ parse value ora with ora1"."ora2
+ Ora1 = Ora1 + (24 * giorni)
+ Ora1 = strip(Ora1+0)
+ Ora2 = strip(Ora2+0)
+ Ora = Right(Ora1,2)":"left(Ora2,2)
+ return Ora
+
+GestioneMezzanotte:
+   arg Orap, Oraa
+   Oraa = TRANSLATE(Oraa, ".",":")
+   Orap = TRANSLATE(Orap, ".",":")
+   parse value orap with orap1"."orap2
+   parse value oraa with oraa1"."oraa2
+   if ( (60 *  orap1) + orap2) > ( (60 *  oraa1) + oraa2) then return 1
+   return 0
+
+CopyModify:
+ In  = "\tmp\tmp.tmp"
+"@echo Set di prove:" FileN "Generato il:" Date("L") "alle" left(Time(),5) ">" In
+'type' legenda ">>" In
+'superc2  \tmp\extr1.out \tmp\extr1.mot LTYP=L OUTP='In 'NOSS APND OV80 ROVR'
+ Out = fileconfronto
+ "@del" Out ">NUL 2>&1"
+ do while lines(In) > 0
+    Linea = LineIn(In)
+    if left(Linea,3) == "I -" then Linea = "It:"substr(Linea,4)
+    if left(Linea,3) == "D -" then Linea = "Mo:"substr(Linea,4)
+    Dummy = LineOut(Out,Linea)
+ end
+ Dummy = LineOut(Out)
+ Dummy = LineOut(In)
+ "@del" In  ">NUL 2>&1"
+ "@del \tmp\extr1.*" ">NUL 2>&1"
+ return
+Esiste:
+ return stream(arg(1),'c','query exists')
+TempoTr:
+arg Ora1,Ora2
+MM1 = (60*left(Ora1,2)) + right(Ora1,2)
+MM2 = (60*left(Ora2,2)) + right(Ora2,2)
+
+if MM2 < MM1 then MM2 = MM2 + 1440
+MM3 = MM2 - MM1
+MM4 = trunc(MM3 / 60, 0)
+MM5 = MM3 - (60 * MM4)
+return Normalizza(MM4":"MM5)

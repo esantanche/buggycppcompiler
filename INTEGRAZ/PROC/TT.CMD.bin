@@ -1,0 +1,21 @@
+/* PROVA */ 
+
+  DBA8 = DBSIPAX
+  DB7  = DBSIPAX
+  BNDDIR="C:\SIPAX\PSQL"
+  modulo="exec_sql"
+
+  say "   Allineamento bind su database "DBA8
+  say "   dbm bind "bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO"
+  /* OLD
+  Res3 = dbm("bind" bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO")
+  "copy" bnddir"\BND\"DB7"\"Modulo".bnd u:\tmp\*.*"
+  */
+  "@npclient srv1test TEST -PASSWORD MYREXX rc=dbm('bind u:\tmp\"Modulo".bnd to database" DBA8 "USING DATETIME ISO')"
+  Dmy = STREAM("U:\TMP\RESULT","c","open")
+  Res3 = CHARIN("U:\TMP\RESULT",1,5)
+  Dmy = STREAM("U:\TMP\RESULT","c","close")
+  "@del u:\tmp\*.* /n"
+  say "Res3 = " Res3
+
+

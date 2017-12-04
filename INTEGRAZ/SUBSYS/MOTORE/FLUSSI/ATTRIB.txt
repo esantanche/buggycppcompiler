@@ -1,0 +1,1037 @@
+REM "**************************************"
+REM "*                                    *"
+REM "*   versione del 30 Novembre 1994    *"
+REM "*                                    *"
+REM "**************************************"
+REM "-------------------------------------------------------------
+    Su ogni project mofificare i seguenti defaults:
+        FASATURA Sostituire con enciclopedia di lavoro
+        D        Sostituire con filtro di default (di norma D)
+REM -------------------------------------------------------------"
+REM "ATTRIB per la fase di DISEGNO
+REM -----------------------------------------------------------------------"
+REM "Msg distingue i messaggi (eventi) dalle message connection (Relazioni)"
+LIST "Msg"
+BEGIN
+        VALUE   "Message Connection"
+        VALUE   "Message a Oggetto"
+        VALUE   "Message a Classe"
+END
+REM "-----------------------------------------------------------------------"
+REM "L' attributo proprieta' indica il Project che e' proprietario del dato."
+REM "Il gruppo FASATURA indica i dati cross tra gli altri gruppi, e che sono
+sempre gestiti con responsabilita' congiunta."
+LIST "Proprieta'"
+BEGIN
+        VALUE   MOTORE
+        VALUE   ACCOUNT
+        VALUE   VENDITA
+        VALUE   DIREZ
+        VALUE   YM
+        VALUE   IMPIANTO
+        VALUE   "QUALITA'"
+        VALUE   SCP
+        VALUE   TELEDIST
+        VALUE   FASATURA
+        VALUE   TRANSITORIO
+END
+REM "-----------------------------------------------------------------------"
+REM "Indica se il processo o il data element sono di oggetto o di classe"
+LIST "Tipo Data Element/Processo"
+BEGIN
+        VALUE   "Non Applicabile"
+        VALUE   "Classe"
+        VALUE   "Oggetto"
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono i tipi dato dell'analisi"
+LIST "Tipo Dato"
+BEGIN
+        VALUE   "Alfanumerico"
+        VALUE   "Numerico"
+        VALUE   "Data"
+        VALUE   "Alfa Multiplo"
+        VALUE   "Booleano"
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono i tipi dato ammessi in COBOL"
+LIST "Tipo Dato COBOL"
+BEGIN
+        VALUE   "Non Applicabile"
+        VALUE   "Interger"
+        VALUE   "Pic(X)"
+        VALUE   "Pic(9)"
+        VALUE   "Booleano"
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono i tipi dato ammessi in AS"
+LIST "Tipo Dato AS"
+BEGIN
+        VALUE   "Non Applicabile"
+        VALUE   "Alfanumerico"
+        VALUE   "Numerico"
+        VALUE   "Multi-Response"
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono i tipi dato ammessi per il DB2"
+LIST "SQL Data Types"
+BEGIN
+        VALUE "Non Applicabile"
+        VALUE CHAR
+        VALUE DATE
+        VALUE DECIMAL
+        VALUE INTEGER
+        VALUE REAL
+        VALUE SMALLINT
+        VALUE TIME
+        VALUE TIMESTAMP
+        VALUE VARCHAR
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono i thread (OOLIB) utilizzati dall' applicazione"
+REM "Il default e' STANDARD. Il thread si propaga gerarchicamente
+     dalla classe, al metodo ed infine al messaggio. E' obbligatorio sulla
+     classe mentre e' facoltativo su metodo e messaggio."
+LIST "Thread"
+BEGIN
+     REM "Thread 2 su OOLIB, non applicabile su altri ambienti"
+        VALUE   "STANDARD"
+     REM "Thread generico di accodamento asincrono'"
+        VALUE   "GENERIC_QUEUED"
+     REM "Stampe a bassa priorita'"
+        VALUE   "STAMPA"
+     REM "Comunicazioni asincrone 1"
+        VALUE   "COMM1"
+     REM "Comunicazioni asincrone 2"
+        VALUE   "COMM2"
+     REM "Comunicazioni con servente sottosistema qualita'"
+        VALUE   "QUALITY"
+     REM "Watch Dog del sottosistema qualita' "
+        VALUE   "W_DOG"
+END
+REM "-----------------------------------------------------------------------"
+REM "Queste sono le modalita' normali di passaggio parametri"
+LIST "M_Parm"
+BEGIN
+     REM "Lista di parametri"
+        VALUE   "PARAM_LIST"
+     REM "Si chiama un metodo dell'oggetto Routines che ha una
+          definita lista di parametri"
+        VALUE   "CONTAINER"
+     REM "Working storage CICS (per chiamate via EXEC CICS LINK)"
+        VALUE   "CICS"
+     REM "Chiamate tra moduli TPF"
+        VALUE   "TPF"
+     REM "Modalita' di passaggio in AS"
+        VALUE   "INCLUDE"
+     REM "Modalita' di passaggio in AS"
+        VALUE   "SVA"
+     REM "Parametri passati su FILE"
+        VALUE   "FILE"
+     REM "Parametri letti da DB relazionale"
+        VALUE   "DB"
+END
+REM "-----------------------------------------------------------------------"
+LIST "DLL o OBS"
+BEGIN
+        VALUE "NON APPLICABILE"
+END
+REM "-----------------------------------------------------------------------"
+LIST "Nullity Types"
+BEGIN
+        VALUE "NON APPLICABILE"
+        VALUE "NULL"
+        VALUE "NOT NULL"
+        VALUE "NOT NULL WITH DEFAULT"
+END
+REM "-----------------------------------------------------------------------"
+REM "Questi sono le modalita' di creazione (tramite il metodo OPEN) di un
+     oggetto. Le modalita' di partura possono essere anche multiple ma non
+     sono ammesse le seguenti combinazioni: READ ONLY e COMMIT, READ ONLY
+     e LOCK"
+LIST "Open Mode"
+BEGIN
+        VALUE "NON APPLICABILE"
+        VALUE "COMMIT"
+        VALUE "NO COMMIT"
+        VALUE "LOCK"
+        VALUE "ONE OPEN"
+        VALUE "READ ONLY"
+        VALUE "EXCLUSIVE"
+        VALUE "NORMAL"
+END
+REM "-----------------------------------------------------------------------"
+REM "Esportabilita' della classe e dei metodi della classe al run-time."
+LIST "Esportabilita'"
+BEGIN
+        VALUE "NON APPLICABILE"
+        VALUE "EXPORT"
+        VALUE "NON EXPORT"
+END
+REM "-----------------------------------------------------------------------"
+REM "Visibilita' per metodi e attributi al compile-time."
+LIST "Visibilita'"
+BEGIN
+        VALUE "PUBLIC"
+        VALUE "PRIVATE"
+        VALUE "PROTECTED"
+END
+REM "-----------------------------------------------------------------------"
+REM "Ambiente di implementazione della classe e del process."
+LIST "Ambiente"
+BEGIN
+        VALUE "OOLIB-C++"
+        VALUE "COBOL-CICS"
+        VALUE "COBOL-BATCH"
+        VALUE "C-TPF"
+        VALUE "ASM-TPF"
+        VALUE "AS"
+        VALUE "OOLIB-SCP-C++"
+END
+REM "-----------------------------------------------------------------------"
+REM "Classe base di ogni classe applicativa. La lista puo' essere completata
+     con le classi base specifiche di ogni sottosistema."
+LIST "Classe Base"
+BEGIN
+        VALUE "MAP_VIEW"
+        VALUE "OBJECT"
+        VALUE "RECORD"
+        VALUE "SIMBOLO"
+        VALUE "COMUNICAZIONE"
+END
+REM "-----------------------------------------------------------------------"
+REM "Indica il supporto sul quale viene salvato l'oggetto"
+LIST "Supporto persistenza"
+BEGIN
+        VALUE "DB2 Host"
+        VALUE "DB2 Server Dati"
+        VALUE "DB2 Server Impianto"
+        VALUE "File Locale"
+        VALUE "TPF"
+        VALUE "File AS"
+END
+REM "-----------------------------------------------------------------------"
+List "Valori Teledistribuzione"
+BEGIN
+        VALUE "Presente solo su DBRIF"
+        VALUE "Presente su DBVAR ma NON TD"
+        VALUE "Teledistribuito a IWS"
+        VALUE "Teledistribuito più LOG variazioni"
+END
+REM "*****************************************************************"
+DICTIONARY "Subject"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Class"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Attributes/Fields"
+                BEGIN Edit ListOf "Data" LENGTH 1500
+                DISPLAY { FORMAT List }  END
+        ATTRIBUTE "Services/Operations"
+                BEGIN Edit ListOf "Process" LENGTH 1500
+                DISPLAY { FORMAT String }  END
+        ATTRIBUTE "Nome File"
+                BEGIN EDIT text LENGTH 8 END
+        ATTRIBUTE "Cardinalita'"
+                BEGIN EDIT text LENGTH 50 END
+        ATTRIBUTE "DLL o OBS di appartenenza"
+                BEGIN EDIT text List "DLL o OBS" LENGTH 20 END
+        ATTRIBUTE "Ambiente"
+                BEGIN EDIT text LISTONLY List "Ambiente" LENGTH 15
+                DEFAULT OOLIB-C++ END
+        ATTRIBUTE "Identificazione delle istance"
+                BEGIN EDIT text LENGTH 500 END
+        ATTRIBUTE "Classe base"
+                BEGIN EDIT text LISTONLY List "Classe Base" LENGTH 20 END
+        ATTRIBUTE "Persistenza"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Supporto Persistenza"
+                BEGIN EDIT text List "Supporto persistenza"  LENGTH 200 END
+        ATTRIBUTE "Open Mode"
+                BEGIN EDIT text List "Open Mode" LENGTH 15
+                DEFAULT "NON APPLICABILE" END
+        ATTRIBUTE "Esportabilita'"
+                BEGIN EDIT text LISTONLY List "Esportabilita'"  LENGTH 20
+                DEFAULT "EXPORT" END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Object"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Class"
+                BEGIN EDIT OneOf "Class" LENGTH 64 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Data Element"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Filtro (012...)"
+                BEGIN EDIT text LENGTH 6 DEFAULT 0 END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+    REM "Tipo Data Element"
+        ATTRIBUTE "Tipo Data Element"
+                BEGIN EDIT text LISTONLY List "Tipo Data Element/Processo"
+                DEFAULT "Non Applicabile" LENGTH 15 END
+    REM "Tipo dato di analisi"
+        ATTRIBUTE "Tipo Dato"
+                BEGIN EDIT text LISTONLY List "Tipo Dato"
+                DEFAULT "Alfanumerico" LENGTH 15 END
+        ATTRIBUTE "Length"
+                BEGIN EDIT numeric LENGTH 4 END
+REM "Usati per generazione schemi"
+        ATTRIBUTE "SQL Comment"
+                BEGIN EDIT text LENGTH 400 END
+        ATTRIBUTE "SQL Data Type"
+                BEGIN EDIT text LISTONLY List "SQL Data Types"
+                DEFAULT "Non Applicabile" LENGTH 15 END
+        ATTRIBUTE "SQL Type Qualifiers"
+                BEGIN EDIT Text LENGTH 20 END
+        ATTRIBUTE "Default Nullity"
+                BEGIN EDIT Text LISTONLY List "Nullity Types" LENGTH 24 END
+        ATTRIBUTE "Column Name"
+                BEGIN EDIT Text LENGTH 18 END
+    REM "Tipi dato del disegno"
+        ATTRIBUTE "Codifica Tecnica con Dominio"
+                BEGIN EDIT text LENGTH 120 END
+        ATTRIBUTE "Tipo Dato COBOL"
+                BEGIN EDIT text LISTONLY List "Tipo Dato COBOL"
+                DEFAULT "Non Applicabile" LENGTH 15 END
+        ATTRIBUTE "Tipo Dato AS"
+                BEGIN EDIT text LISTONLY List "Tipo Dato AS"
+                DEFAULT "Non Applicabile" LENGTH 15 END
+        ATTRIBUTE "Valore di Default"
+                BEGIN EDIT text LENGTH 50 END
+        ATTRIBUTE "Controlli"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Dominio applicativo"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Visibilita'"
+                BEGIN EDIT text LISTONLY List "Visibilita'" LENGTH 20
+                DEFAULT PUBLIC END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Data Structure"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Filtro (012...)"
+                BEGIN EDIT text LENGTH 6 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 500 END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+    REM "Tipo Data Structure"
+        ATTRIBUTE "Tipo Data Structure"
+                BEGIN EDIT text LISTONLY List "Tipo Data Element/Processo"
+                DEFAULT "Non Applicabile" LENGTH 15 END
+REM "Usati per generazione schemi"
+        ATTRIBUTE "TableSpace Name"
+                BEGIN EDIT Text LENGTH 8 END
+        ATTRIBUTE "Naming Prefix"
+                BEGIN EDIT text LENGTH 8 END
+        ATTRIBUTE "Not a table"
+                BEGIN EDIT BOOLEAN DEFAULT "T" END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Message"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Tipo Messaggio"
+                BEGIN EDIT text LISTONLY List "Msg" LENGTH 20
+                DEFAULT "Message a Oggetto" END
+        ATTRIBUTE "Identificazione Oggetto"
+                BEGIN EDIT text LENGTH 4095 END
+REM "IF Message Connection"
+        ATTRIBUTE "REM: IF 'Message Connection'"
+                BEGIN EDIT text LENGTH 1 READONLY END
+        ATTRIBUTE "Cardinalita'"
+                BEGIN EDIT text LENGTH 50 END
+        ATTRIBUTE "Owner"
+                BEGIN EDIT OneOf "Class" LENGTH 64 END
+REM "IF Message"
+        ATTRIBUTE "REM: IF 'Message'"
+                BEGIN EDIT text LENGTH 1 READONLY END
+        ATTRIBUTE "Proprietario"
+                BEGIN EDIT text LENGTH 50 END
+        ATTRIBUTE "Operation"
+               BEGIN EDIT OneOf "Process" LENGTH 64 END
+        ATTRIBUTE "Struttura in Input"
+                BEGIN Edit ListOf "Data" LENGTH 1500 END
+        ATTRIBUTE "Struttura in Output"
+                BEGIN Edit ListOf "Data" LENGTH 1500 END
+        ATTRIBUTE "Thread di esecuzione"
+                BEGIN EDIT text LISTONLY List "Thread" LENGTH 12
+                DEFAULT STANDARD  END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Instance"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Owner"
+                BEGIN EDIT OneOf "Class" LENGTH 64 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Process"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+    REM "Tipo Processo"
+        ATTRIBUTE "Tipo Processo"
+                BEGIN EDIT text LISTONLY List "Tipo Data Element/Processo"
+                DEFAULT "Oggetto" LENGTH 15 END
+        ATTRIBUTE "Ambiente"
+                BEGIN EDIT text LISTONLY List "Ambiente" LENGTH 20
+                DEFAULT OOLIB-C++
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "PreConditions"
+                BEGIN EDIT text LENGTH 2000 END
+        ATTRIBUTE "PostConditions"
+                BEGIN EDIT text LENGTH 2000 END
+        ATTRIBUTE "Struttura in Input"
+                BEGIN Edit ListOf "Data" LENGTH 1500
+                DISPLAY { FORMAT List }  END
+        ATTRIBUTE "Struttura in Output"
+                BEGIN Edit ListOf "Data" LENGTH 1500
+                DISPLAY { FORMAT List }  END
+        ATTRIBUTE "Description"
+                BEGIN EDIT MiniSpec LENGTH 4095  END
+        ATTRIBUTE "Nome schema (DFD,FLOW ...)"
+                BEGIN EDIT text LENGTH 31 END
+        ATTRIBUTE "Condizioni di errore"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Modalita' passaggio parametri"
+                BEGIN EDIT text LISTONLY List "M_Parm"
+                DEFAULT "PARAM_LIST" LENGTH 15 END
+        ATTRIBUTE "Thread Preferenziale"
+                BEGIN EDIT text LISTONLY List "Thread"
+                LENGTH 15 DEFAULT STANDARD  END
+        ATTRIBUTE "Esportabilita'"
+                BEGIN EDIT text LISTONLY List "Esportabilita'"  LENGTH 20
+                DEFAULT "EXPORT" END
+        ATTRIBUTE "Visibilita'"
+                BEGIN EDIT text LISTONLY List "Visibilita'" LENGTH 20
+                DEFAULT PUBLIC
+                DISPLAY { FORMAT string LEGEND "-" } END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Data Store"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 4095
+                DISPLAY { FORMAT Key LEGEND "Key Data" }
+                DISPLAY { FORMAT NonKey LEGEND "Non-Key Data" } END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Normalize"
+                BEGIN EDIT BOOLEAN DEFAULT "T" END
+        ATTRIBUTE "Volume"
+                BEGIN EDIT text LENGTH 80 END
+        ATTRIBUTE "Persistenza"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Supporto Persistenza"
+                BEGIN EDIT text List "Supporto persistenza"  LENGTH 200 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Data Flow"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 4095 END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "External"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Entity"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Filtro (012...)"
+                BEGIN EDIT text LENGTH 6 DEFAULT 0 END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 1500
+                DISPLAY { FORMAT Key LEGEND "Key Data" }
+                DISPLAY { FORMAT NonKey LEGEND "Non-Key Data" } END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Esempio"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Fonte"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Normalize"
+                BEGIN EDIT boolean LENGTH 1 DEFAULT F END
+        ATTRIBUTE "Volume"
+                BEGIN EDIT text LENGTH 100 END
+REM "Usati per generazione schemi"
+        ATTRIBUTE "SQL Comment"
+                BEGIN EDIT text LENGTH 400 END
+        ATTRIBUTE "Table Name"
+                BEGIN EDIT Text LENGTH 16 END
+        ATTRIBUTE "TableSpace Name"
+                BEGIN EDIT text LENGTH 8 END
+	ATTRIBUTE "StorageGroup Name (per indici)"
+		BEGIN EDIT Text LENGTH 7 END
+        ATTRIBUTE "Naming Prefix"
+                BEGIN EDIT text LENGTH 8 END
+        ATTRIBUTE "Not a table"
+                BEGIN EDIT BOOLEAN DEFAULT "F" END
+        ATTRIBUTE "Teledistribuzione"
+                BEGIN EDIT text LISTONLY List "Valori Teledistribuzione" LENGTH 35
+                END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+ DICTIONARY "Relationship"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 1500 END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Esempio"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Fonte"
+                BEGIN EDIT text LENGTH 1000 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Access Path"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 1500
+                DISPLAY { FORMAT Key LEGEND "Key Data" } END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+END
+
+REM "*****************************************************************"
+DICTIONARY "Transition"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Events"
+                BEGIN EDIT text LENGTH 1000  END
+        ATTRIBUTE "Actions"
+                BEGIN EDIT ListOf Process LENGTH 2000  END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "State"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Change Request"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Richiedente"
+                BEGIN EDIT text LENGTH 100 END
+        ATTRIBUTE "Data Richiesta"
+                BEGIN EDIT text LENGTH 20 END
+        ATTRIBUTE "Documento di riferimento"
+                BEGIN EDIT text LENGTH 100 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Test Plan"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Richiedente"
+                BEGIN EDIT text LENGTH 100 END
+        ATTRIBUTE "Controlli"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Modalita' di esecuzione"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Prerequisiti"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Ambiente di test"
+                BEGIN EDIT text LENGTH 500 END
+        ATTRIBUTE "Ultimo Livello SW testato"
+                BEGIN EDIT text LENGTH 100 END
+        ATTRIBUTE "Autore test"
+                BEGIN EDIT text LENGTH 50 END
+        ATTRIBUTE "Risultati test"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Documento Relazione FS"
+                BEGIN EDIT text LENGTH 1000 END
+        ATTRIBUTE "Azioni correttive"
+                BEGIN EDIT text LENGTH 2000 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Description"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+        ATTRIBUTE "Esempio"
+                BEGIN EDIT text LENGTH 1000 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Module"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT MiniSpec LENGTH 4095  END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Database"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA
+                DISPLAY { FORMAT string LEGEND "-" } END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 1500 END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Data Flag"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT ExpressionOf "Data" LENGTH 1500 END
+        ATTRIBUTE "Definizione"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+REM "*****************************************************************"
+DICTIONARY "Control Flag"
+REM "*****************************************************************"
+BEGIN
+        ATTRIBUTE "Filtro (ADF...)"
+                BEGIN EDIT text LENGTH 20 DEFAULT D END
+        ATTRIBUTE "Proprieta'"
+                BEGIN EDIT text LISTONLY List "Proprieta'" LENGTH 8
+                DEFAULT FASATURA END
+        ATTRIBUTE "Description"
+                BEGIN EDIT text LENGTH 4095 END
+REM "Impostati automaticamente da SA"
+        ATTRIBUTE UpdateDate
+                BEGIN EDIT text UPDATE date LENGTH 12 READONLY END
+        ATTRIBUTE UpdateTime
+                BEGIN EDIT text UPDATE time LENGTH 12 READONLY END
+        ATTRIBUTE UpdateAuditId
+                BEGIN EDIT text UPDATE auditid LENGTH 12 READONLY END
+        ATTRIBUTE InitialDate
+                BEGIN EDIT text INITIAL date LENGTH 12 READONLY END
+        ATTRIBUTE InitialTime
+                BEGIN EDIT text INITIAL time LENGTH 12 READONLY END
+        ATTRIBUTE InitialAuditId
+                BEGIN EDIT text INITIAL auditid LENGTH 12 READONLY END
+END
+

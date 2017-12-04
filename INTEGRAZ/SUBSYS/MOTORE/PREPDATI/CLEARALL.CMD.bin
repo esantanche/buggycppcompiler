@@ -1,0 +1,9 @@
+setlocal
+del e:\tmp\*.*  /n
+del e:\wrk\*.*  /n
+del e:\motore1\prepdati\*.exe 
+del \file_t2\out\*.txt
+del \file_t2\out\*.trc
+e:
+cd \file_t2
+pkunzipd -n -d base

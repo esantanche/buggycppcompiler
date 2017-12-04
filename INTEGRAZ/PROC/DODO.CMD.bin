@@ -1,0 +1,23 @@
+@PROMPT [34;47m[$R $P]
+@echo [34;47m
+@cls
+rem ------------------------------------------------------
+rem Questo file puo essere aggiunto a config.sys e/o a config.mio
+rem Aggiunta a config.sys:
+rem   sostituire il corretto drive di integrazione (es $ -> C)
+rem   sostituire %path% con il path gia' presente in config.sys
+rem Aggiunta a config.mio:
+rem   sostituire il corretto drive di integrazione (es $ -> C)
+rem ------------------------------------------------------
+REM Questa variabile mi indica il drive dove ho i source integrati e gli OBJECT
+SET ITG_DRIVE=D:
+SET TEST=SI
+SET DB_SUFFIX=?
+SET TEST_ROOT=D:\SIPAX
+SET TRUE_TARGET=D:\TARGET
+SET SVILUPPO=SI
+SET TRUE_MALLOC=NO
+PATH=D:\INTEGRAZ\PROC;%PATH%
+@echo Impostare SET TRUE_MALLOC=SI se si vuole disabilitare i trace sulle malloc
+rem ------------------------------------------------------
+

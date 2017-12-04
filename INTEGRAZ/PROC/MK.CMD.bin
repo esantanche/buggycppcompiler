@@ -1,0 +1,27 @@
+@echo off
+setlocal
+prompt $g
+echo MK %1 %2 %3 %4 %5
+rem eseguo un touch prima del make per forzare almeno il relink: questo perche'
+rem con le opzioni di compilazione che abbiamo al momento
+rem altrimenti il risultato potrebbe avere degli unresolved external.
+rem puo' essere tolto se si toglie l' opzione -i al comando di make
+rem touch    %ITG_DRIVE%\INTEGRAZ\proc\%1.mak
+if exist make.ok del make.ok 
+if exist %ITG_DRIVE%\INTEGRAZ\proc\result\%1.KO del %ITG_DRIVE%\INTEGRAZ\proc\result\%1.KO 
+@echo on
+@rem make -i -B -f  %ITG_DRIVE%\INTEGRAZ\proc\%1.mak | see2 %ITG_DRIVE%\INTEGRAZ\proc\result\%1.lst
+make -f %ITG_DRIVE%\INTEGRAZ\proc\%1.mak | see2 %ITG_DRIVE%\INTEGRAZ\proc\result\%1.lst
+@echo off
+if not exist make.ok goto bad
+echo MAKE COMPLETATO OK
+echo MAKE COMPLETATO OK >>%ITG_DRIVE%\INTEGRAZ\proc\result\%1.lst
+del make.ok >NUL
+goto fine
+:bad
+echo MAKE COMPLETATO KO
+echo MAKE COMPLETATO KO >> %ITG_DRIVE%\INTEGRAZ\proc\result\%1.lst
+rename %ITG_DRIVE%\INTEGRAZ\proc\result\%1.lst %1.KO
+call BEEP
+:fine
+

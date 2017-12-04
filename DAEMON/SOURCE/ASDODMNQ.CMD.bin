@@ -1,0 +1,7 @@
+@setlocal
+bcc +optim.cfg -ls asdmnq8.cpp ipcfssrv.c OOLIB3.LIB OOLIB2.LIB UTENTE3.LIB SIPAX3.LIB MOTORE3.LIB
+@if errorlevel 1 goto BAD
+@goto fine
+:bad
+echo Compilazione in errore
+:fine

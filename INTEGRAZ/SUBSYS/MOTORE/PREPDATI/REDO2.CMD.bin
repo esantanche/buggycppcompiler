@@ -1,0 +1,20 @@
+setlocal
+set DELEFIL=SI
+@cd \polimet
+unzip32 -uo polimetr.zip
+@cd \motore1\prepdati
+@rem call newmot
+@set Fai2=Call C3
+goto start
+:start
+%Fai2% fp_stazi|| set DELEFIL=NO
+%Fai2% fp_zero || set DELEFIL=NO
+%Fai2% fp_uno  || set DELEFIL=NO
+%Fai2% fp_due  || set DELEFIL=NO 
+%Fai2% fp_tre  || set DELEFIL=NO 
+@rem EMS if %1. == . %Fai2% fp_qua || set DELEFIL=NO
+cd \polimet
+if %DELEFIL% == SI zip -fmT polimetr
+UNZIP POLIMETR POLIMETR.TMP
+:fine
+

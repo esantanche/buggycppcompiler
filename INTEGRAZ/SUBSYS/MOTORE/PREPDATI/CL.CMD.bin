@@ -1,0 +1,21 @@
+@setlocal
+@del BAD.BAD>nul
+set OK_BEEP=SI
+@if exist %1.c   set pgm=%1.c
+@if exist %1.cpp set pgm=%1.cpp
+bcc +sipax.cfg -ls %pgm% OOLIB.LIB OOLIB2.LIB UTENTE.LIB SIPAX.LIB MOTO2.LIB 
+@if errorlevel 1 goto BAD
+@del c:\TEMP\%1.obj
+@copy c:\TEMP\%1.exe
+@if NOT %OK_DMPGET%. == . dmpget  %1.exe c:\TEMP\%1.MAP /E
+@DEL c:\TEMP\%1.MAP
+@del c:\TEMP\%1.exe
+if not %2. == . %1 %2 %3 %4 %5 %6 %7 %8 %9
+@goto fine
+:bad
+@echo "KO" >BAD.BAD
+@echo Compilazione in errore
+call BEEP
+goto fine
+:fine
+

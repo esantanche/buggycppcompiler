@@ -1,0 +1,17 @@
+-ProjectInfo
++name=Orario FS - Baselib.dll
++type=VACPP.IWS
+-BuildInfo
++target=baselib.dll
++runOptions=
++makefile=makefile
+-LocationInfo
++defaultDir=c:\\ems\\baselib\\dll
++dirs=c:\\ems\\baselib\\source;c:\\ems\\porting\\source;c:\\ems\\baselib\\dll
+-ConfigInfo
++filter=*
++position=2 3 3000 3000 -4 -4 119 24 652 424
+ 652 424
+24
+4
+

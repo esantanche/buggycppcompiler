@@ -1,0 +1,36 @@
+/*  Controlla che il file di EXPORT non sia corrotto */
+arg ftmp
+/* TRACE ALL */
+Linea = LINEIN(ftmp)
+KO = 0
+if WORD(Linea,1) <> "LIBRARY" then KO = 1
+Linea = LINEIN(ftmp)
+if WORD(Linea,1) <> "" then KO = 2
+Linea = LINEIN(ftmp)
+if WORD(Linea,1) <> "DESCRIPTION" then KO = 3
+Linea = LINEIN(ftmp)
+if WORD(Linea,1) <> "" then KO = 4
+Linea = LINEIN(ftmp)
+if WORD(Linea,1) <> "EXPORTS" then KO = 5
+
+Linea = STRIP(LINEIN(ftmp))
+
+do while KO == 0 & Linea <> ""
+   FirstW = WORD(Linea,1)
+   FirstC = SUBSTR(Linea,1,1)
+   /* say "FirstC='"FirstC"' Linea = '"Linea"'" */
+   if FirstC <> "_" & FirstC <> "@" then KO = 99
+   if KO == 0 then Linea = STRIP(LINEIN(ftmp))
+end /* do */
+
+
+if KO <> 0  then do
+   say "File" ftmp "Corrotto!  KO =" KO
+   say "Linea:" Linea
+   exit 4
+   end  /* Do */
+else do
+   say "File" ftmp "OK"
+   exit 0
+end
+

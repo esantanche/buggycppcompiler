@@ -1,0 +1,11 @@
+cd \motore1\source
+call do ALL_OBJ
+cd \motore1\prepdati
+@if NOT %1. == . goto lib
+bcc +sipax.cfg -c ft_lib.cpp ftptreno.cpp || goto fine
+rem bcc +sipax.cfg -c ft_lib.cpp || goto fine
+:lib
+del moto2.lib 
+tlib /P64 moto2.lib @moto2.lli
+:fine
+

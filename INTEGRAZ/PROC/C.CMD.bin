@@ -1,0 +1,7 @@
+@setlocal
+@if exist %1.c   set pgm=%1.c
+@if exist %1.cpp set pgm=%1.cpp
+@if %EXT_CFG%. == . set EXT_CFG=CFG
+bcc +%ITG_DRIVE%\integraz\proc\min.%ext_cfg% %pgm%  %2 %3 %4 %5 %6 %7 %8 %9
+copy %TMP_DRIVE%\wrk\%1.exe %ITG_DRIVE%\integraz\proc\*.*
+

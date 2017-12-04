@@ -1,0 +1,196 @@
+LIBRARY MOTORE3 INITINSTANCE TERMINSTANCE
+; -------------------------------------------------
+; MOTORE3: Modello Orario Tariffe E Polimetriche
+; Progetto SIPAX IBM Semea
+; -------------------------------------------------
+; MOTORE3.DEF Allineato al 06/02/97
+
+DESCRIPTION 'MOTORE3: Sipax 312  Versione Maggio 1995 06/02/97'
+
+DATA MULTIPLE NONSHARED
+
+EXPORTS
+
+ @TRC_BASE$qv                                                             @1    ;  TRC_BASE()
+ @SDATA@$o7STRINGA$xqv                                                    @2    ;  SDATA::operator STRINGA() const
+ @SDATA@$bgtr$xqrx5SDATA                                                  @3    ;  SDATA::operator >(const SDATA near&) const
+ @SDATA@$bgeq$xqrx5SDATA                                                  @4    ;  SDATA::operator >=(const SDATA near&) const
+ @SDATA@$blss$xqrx5SDATA                                                  @5    ;  SDATA::operator <(const SDATA near&) const
+ @SDATA@$bleq$xqrx5SDATA                                                  @6    ;  SDATA::operator <=(const SDATA near&) const
+ @SDATA@$beql$xqrx5SDATA                                                  @7    ;  SDATA::operator ==(const SDATA near&) const
+ @SDATA@$bneq$xqrx5SDATA                                                  @8    ;  SDATA::operator !=(const SDATA near&) const
+ @SDATA@$bsub$xqrx5SDATA                                                  @9    ;  SDATA::operator -(const SDATA near&) const
+ @SDATA@Giuliano$xqv                                                      @10   ;  SDATA::Giuliano() const
+ @SDATA@GiornoDellaSettimana$qv                                           @11   ;  SDATA::GiornoDellaSettimana()
+ @SDATA@$binc$qv                                                          @12   ;  SDATA::operator ++()
+ @SDATA@$bdec$qv                                                          @13   ;  SDATA::operator --()
+ @SDATA@DaGGMMAAAA$qrx7STRINGA                                            @14   ;  SDATA::DaGGMMAAAA(const STRINGA near&)
+ @SDATA@Bisestile$xqv                                                     @15   ;  SDATA::Bisestile() const
+ @ORA$qs                                                                  @16   ;  ORA(short)
+ @GRUPPO@$o7STRINGA$xqv                                                   @17   ;  GRUPPO::operator STRINGA() const
+ @VALIDITA_ORARIO@Trace$qrx7STRINGAi                                      @18   ;  VALIDITA_ORARIO::Trace(const STRINGA near&,int)
+ @VALIDITA_ORARIO@OrarioValido$qrx7STRINGA                                @19   ;  VALIDITA_ORARIO::OrarioValido(const STRINGA near&)
+ @CLU_BUFR@ClearPool$qul                                                  @20   ;  CLU_BUFR::ClearPool(unsigned long)
+ @CLU_BUFR@TraceTotalIo$qv                                                @21   ;  CLU_BUFR::TraceTotalIo()
+ @MM_PERIODICITA@Circola$qr5SDATA                                         @22   ;  MM_PERIODICITA::Circola(SDATA near&)
+ @MM_PERIODICITA@Circolazione_STRINGA$qv                                  @23   ;  MM_PERIODICITA::Circolazione_STRINGA()
+ @MM_PERIODICITA@Decod$qululul                                            @24   ;  MM_PERIODICITA::Decod(unsigned long,unsigned long,unsigned long)
+ @MM_PERIODICITA@Trace$q7STRINGAi                                         @25   ;  MM_PERIODICITA::Trace(STRINGA,int)
+ @MM_SOLUZIONE@GetNote$qv                                                 @26   ;  MM_SOLUZIONE::GetNote()
+ @MM_SOLUZIONE@StoreTo$qr4BUFR                                            @27   ;  MM_SOLUZIONE::StoreTo(BUFR near&)
+ @MM_SOLUZIONE@ReStoreFrom$qr4BUFR                                        @28   ;  MM_SOLUZIONE::ReStoreFrom(BUFR near&)
+ @MM_SOLUZIONE@IdentificaStazioni$qr8ARRAY_IDul                           @29   ;  MM_SOLUZIONE::IdentificaStazioni(ARRAY_ID near&,unsigned long)
+ @MM_SOLUZIONE@KmParziali$qucucp13MM_I_PERCORSO                           @30   ;  MM_SOLUZIONE::KmParziali(unsigned char,unsigned char,MM_I_PERCORSO near*)
+ @MM_SOLUZIONE@KmParziali$qusus                                           @31   ;  MM_SOLUZIONE::KmParziali(unsigned short,unsigned short)
+ _UsaIPrecaricati                                                         @32   ; 
+ @MM_I_PERCORSO@Trace$qrx7STRINGAi                                        @33   ;  MM_I_PERCORSO::Trace(const STRINGA near&,int)
+ @MM_I_PERCORSO@PrintPercorso$qir8ARRAY_ID                                @34   ;  MM_I_PERCORSO::PrintPercorso(int,ARRAY_ID near&)
+ @MM_I_PERCORSO@ShortPrintPercorso$qi                                     @35   ;  MM_I_PERCORSO::ShortPrintPercorso(int)
+ @MM_ELENCO_SOLUZIONE@$bdtr$qv                                            @36   ;  MM_ELENCO_SOLUZIONE::~MM_ELENCO_SOLUZIONE()
+ @MM_ELENCO_PERCORSO@Trace$qrx7STRINGAi                                   @37   ;  MM_ELENCO_PERCORSO::Trace(const STRINGA near&,int)
+ @MM_ELENCO_PERCORSO_E_SOLUZIONI@Trace$qrx7STRINGAi                       @38   ;  MM_ELENCO_PERCORSO_E_SOLUZIONI::Trace(const STRINGA near&,int)
+ @MM_ELENCO_PERCORSO_E_SOLUZIONI@Sort$qus                                 @39   ;  MM_ELENCO_PERCORSO_E_SOLUZIONI::Sort(unsigned short)
+ @MM_RETE_FS@CreaRete$qrx7STRINGAt1t1t1t1t1                               @40   ;  MM_RETE_FS::CreaRete(const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&)
+ @MM_RETE_FS@$bdtr$qv                                                     @41   ;  MM_RETE_FS::~MM_RETE_FS()
+ @MM_RETE_FS@InterrompiElaborazione$qv                                    @42   ;  MM_RETE_FS::InterrompiElaborazione()
+ @MM_RETE_FS@RichiestaPerRelazione$qusus6MOTIVO5SDATAus14OPZIONE_UTENTE   @43   ;  MM_RETE_FS::RichiestaPerRelazione(unsigned short,unsigned short,MOTIVO,SDATA,unsigned short,...
+ @MM_RETE_FS@SetOrarioDelGiorno$qr5SDATA                                  @44   ;  MM_RETE_FS::SetOrarioDelGiorno(SDATA near&)
+ @MM_RETE_FS@ViaggioLibero$qr8ARRAY_IDul                                  @45   ;  MM_RETE_FS::ViaggioLibero(ARRAY_ID near&,unsigned long)
+ @MM_RETE_FS@MezziDirettiPrenotabili$qusus                                @46   ;  MM_RETE_FS::MezziDirettiPrenotabili(unsigned short,unsigned short)
+ @MM_RETE_FS@Rete                                                         @47   ;  MM_RETE_FS::Rete
+ @MM_RETE_FS@AttivaAutoDiagnostica$qr7STRINGA                             @48   ;  MM_RETE_FS::AttivaAutoDiagnostica(STRINGA near&)
+ @MM_RETE_FS@AttivaAutoDiagnosticaPath$qr8ARRAY_ID                        @49   ;  MM_RETE_FS::AttivaAutoDiagnosticaPath(ARRAY_ID near&)
+ @MM_RETE_FS@Free$qv                                                      @50   ;  MM_RETE_FS::Free()
+ @MM_RETE_FS@PreparaOut$qr30MM_ELENCO_PERCORSO_E_SOLUZIONI                @51   ;  MM_RETE_FS::PreparaOut(MM_ELENCO_PERCORSO_E_SOLUZIONI near&)
+ @MM_RETE_FS@M300_RichiestaPerRelazione$qususp30MM_ELENCO_PERCORSO_E_SOLUZIONI @52   ;  MM_RETE_FS::M300_RichiestaPerRelazione(unsigned short,unsigned short,...
+ @MM_RETE_FS@SIPAX_RichiestaPerRelazione$qusus6MOTIVO5SDATAus14OPZIONE_UTENTE @53   ;  MM_RETE_FS::SIPAX_RichiestaPerRelazione(unsigned short,unsigned short,MOTIVO,SDATA,unsigned short,...
+ @MM_RETE_FS@$bctr$qrx7STRINGAt1t1t1t1t1                                  @54   ;  MM_RETE_FS::MM_RETE_FS(const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&,const STRINGA near&)
+ @ARRAY_ID@ToStringa$qr8STAZIONIusus                                      @55   ;  ARRAY_ID::ToStringa(STAZIONI near&,unsigned short,unsigned short)
+ @ARRAY_ID@Trace$qr8STAZIONIrx7STRINGAi                                   @56   ;  ARRAY_ID::Trace(STAZIONI near&,const STRINGA near&,int)
+ @STAZIONI@$bctr$qrx7STRINGAt1i                                           @57   ;  STAZIONI::STAZIONI(const STRINGA near&,const STRINGA near&,int)
+ @STAZIONI@$bdtr$qv                                                       @58   ;  STAZIONI::~STAZIONI()
+ @STAZIONI@Posiziona$qus                                                  @59   ;  STAZIONI::Posiziona(unsigned short)
+ @STAZIONI@PosizionaPerCCR$qul                                            @60   ;  STAZIONI::PosizionaPerCCR(unsigned long)
+ @STAZIONI@DecodificaCCR$qul                                              @61   ;  STAZIONI::DecodificaCCR(unsigned long)
+ @STAZIONI@Dim$qv                                                         @62   ;  STAZIONI::Dim()
+ @STAZIONI@DimBuffers$qv                                                  @63   ;  STAZIONI::DimBuffers()
+ @STAZIONI@FStazioni                                                      @64   ;  STAZIONI::FStazioni
+ @STAZIONI@FCcr                                                           @65   ;  STAZIONI::FCcr
+ @STAZIONI@CountOpened                                                    @66   ;  STAZIONI::CountOpened
+ @STAZIONI@Mutex                                                          @67   ;  STAZIONI::Mutex
+ @STAZIONI@GetMutex$qv                                                    @68   ;  STAZIONI::GetMutex()
+ @STAZIONI@FreeMutex$qv                                                   @69   ;  STAZIONI::FreeMutex()
+ @STAZIONI_BYNAME@KeySet$qv                                               @70   ;  STAZIONI_BYNAME::KeySet()
+ @STAZIONI_BYNAME@ExtraSet$qv                                             @71   ;  STAZIONI_BYNAME::ExtraSet()
+ @CCR_ID@$bctr$qpxct1                                                     @72   ;  CCR_ID::CCR_ID(const char near*,const char near*)
+ @CCR_ID@$bdtr$qv                                                         @73   ;  CCR_ID::~CCR_ID()
+ @CCR_ID@$bsubs$qi                                                        @74   ;  CCR_ID::operator [](int)
+ @CCR_ID@Id$qi                                                            @75   ;  CCR_ID::Id(int)
+ @CCR_ID@CercaCCR$qi                                                      @76   ;  CCR_ID::CercaCCR(int)
+ @CCR_ID@CcrId                                                            @77   ;  CCR_ID::CcrId
+ @STAZIONI_MAIU_PER_NOME@KeySet$qv                                        @78   ;  STAZIONI_MAIU_PER_NOME::KeySet()
+ @MM_BASIC_TEST$qv                                                        @79   ;  MM_BASIC_TEST()
+ @DATI_TARIFFAZIONE@Trace$qrx7STRINGAi                                    @80   ;  DATI_TARIFFAZIONE::Trace(const STRINGA near&,int)
+ @DATI_TARIFFAZIONE@StatoInChiaro$qv                                      @81   ;  DATI_TARIFFAZIONE::StatoInChiaro()
+ @DATI_TARIFFAZIONE_2@Clear$qv                                            @82   ;  DATI_TARIFFAZIONE_2::Clear()
+ @DATI_TARIFFAZIONE_2@Trace$qrx7STRINGAi                                  @83   ;  DATI_TARIFFAZIONE_2::Trace(const STRINGA near&,int)
+ @SetBits$qpvriiius                                                       @84   ;  SetBits(void near*,int near&,int,int,unsigned short)
+ @GetBits$qpvii                                                           @85   ;  GetBits(void near*,int,int)
+ @STAZ_FS@Nome7$xqv                                                       @86   ;  STAZ_FS::Nome7() const
+ @PERCORSO_GRAFO@Len$qv                                                   @87   ;  PERCORSO_GRAFO::Len()
+ @PERCORSO_GRAFO@FaCorrezione$qv                                          @88   ;  PERCORSO_GRAFO::FaCorrezione()
+ @PERCORSO_GRAFO@LunghezzaTariffabile$quc                                 @89   ;  PERCORSO_GRAFO::LunghezzaTariffabile(unsigned char)
+ @PERCORSO_GRAFO@$beql$qr14PERCORSO_GRAFO                                 @90   ;  PERCORSO_GRAFO::operator ==(PERCORSO_GRAFO near&)
+ @PERCORSO_GRAFO@Prolunga$qus                                             @91   ;  PERCORSO_GRAFO::Prolunga(unsigned short)
+ @PERCORSO_GRAFO@Set$qr8ARRAY_IDul                                        @92   ;  PERCORSO_GRAFO::Set(ARRAY_ID near&,unsigned long)
+ @PERCORSO_GRAFO@SetUtilizzandoPolimetriche$qr8ARRAY_IDul                 @93   ;  PERCORSO_GRAFO::SetUtilizzandoPolimetriche(ARRAY_ID near&,unsigned long)
+ @PERCORSO_GRAFO@Normalizza$qv                                            @94   ;  PERCORSO_GRAFO::Normalizza()
+ @PERCORSO_GRAFO@Trace$qrx7STRINGAi                                       @95   ;  PERCORSO_GRAFO::Trace(const STRINGA near&,int)
+ @PERCORSO_GRAFO@TraceShortest$qususi                                     @96   ;  PERCORSO_GRAFO::TraceShortest(unsigned short,unsigned short,int)
+ @PERCORSO_GRAFO@DeterminaStazioniVincolanti$qr8ARRAY_IDt1                @97   ;  PERCORSO_GRAFO::DeterminaStazioniVincolanti(ARRAY_ID near&,ARRAY_ID near&)
+ @PERCORSO_GRAFO@IsPuntoDiInversione$qi                                   @98   ;  PERCORSO_GRAFO::IsPuntoDiInversione(int)
+ @PERCORSO_GRAFO@DeterminaFerrovieConcesseUtilizzate$qr8ARRAY_ID          @99   ;  PERCORSO_GRAFO::DeterminaFerrovieConcesseUtilizzate(...
+ @PERCORSO_GRAFO@VincolanteOrigine$qus                                    @100  ;  PERCORSO_GRAFO::VincolanteOrigine(unsigned short)
+ @PERCORSO_GRAFO@VincolanteDestinazione$qus                               @101  ;  PERCORSO_GRAFO::VincolanteDestinazione(unsigned short)
+ @GRAFO@CalcolaDistanzaTra$qusus                                          @102  ;  GRAFO::CalcolaDistanzaTra(unsigned short,unsigned short)
+ @GRAFO@Gr$qv                                                             @103  ;  GRAFO::Gr()
+ _RiconciliazioneAbilitata                                                @104  ; 
+ _RiconciliazioneNecessaria                                               @105  ; 
+ _Si_Diramazion                                                           @106  ; 
+ @PERIODICITA@GiornoSeguente$qv                                           @107  ;  PERIODICITA::GiornoSeguente()
+ @PERIODICITA@GiornoPrecedente$qv                                         @108  ;  PERIODICITA::GiornoPrecedente()
+ @PERIODICITA@Set$qv                                                      @109  ;  PERIODICITA::Set()
+ @PERIODICITA@Set$q5SDATAt1                                               @110  ;  PERIODICITA::Set(SDATA,SDATA)
+ @PERIODICITA@ReSet$qv                                                    @111  ;  PERIODICITA::ReSet()
+ @PERIODICITA@ReSet$q5SDATAt1                                             @112  ;  PERIODICITA::ReSet(SDATA,SDATA)
+ @PERIODICITA@Circola4$quc                                                @113  ;  PERIODICITA::Circola4(unsigned char)
+ @PERIODICITA@$bcmp$qv                                                    @114  ;  PERIODICITA::operator ~()
+ @PERIODICITA@$brand$qr11PERIODICITA                                      @115  ;  PERIODICITA::operator &=(PERIODICITA near&)
+ @PERIODICITA@$bror$qr11PERIODICITA                                       @116  ;  PERIODICITA::operator |=(PERIODICITA near&)
+ @PERIODICITA@$beql$xqrx11PERIODICITA                                     @117  ;  PERIODICITA::operator ==(const PERIODICITA near&) const
+ @PERIODICITA@Empty$qv                                                    @118  ;  PERIODICITA::Empty()
+ @PERIODICITA@Decod$qululul                                               @119  ;  PERIODICITA::Decod(unsigned long,unsigned long,unsigned long)
+ @PERIODICITA@Hex$qv                                                      @120  ;  PERIODICITA::Hex()
+ @PERIODICITA@ImpostaProblema$qr5SDATAt1t1t1                              @121  ;  PERIODICITA::ImpostaProblema(SDATA near&,SDATA near&,SDATA near&,SDATA near&)
+ @PERIODICITA@InizioOrario                                                @122  ;  PERIODICITA::InizioOrario
+ @PERIODICITA@InizioOrarioFS                                              @123  ;  PERIODICITA::InizioOrarioFS
+ @PERIODICITA@FineOrarioFS                                                @124  ;  PERIODICITA::FineOrarioFS
+ @PERIODICITA@GiornoInizioOrario                                          @125  ;  PERIODICITA::GiornoInizioOrario
+ @PERIODICITA@DataC                                                       @126  ;  PERIODICITA::DataC
+ @PERIODICITA@offsetPeriod                                                @127  ;  PERIODICITA::offsetPeriod
+ @PERIODICITA@Trace$qrx7STRINGAi                                          @128  ;  PERIODICITA::Trace(const STRINGA near&,int)
+ @PERIODICITA@Sett$qv                                                     @129  ;  PERIODICITA::Sett()
+ @GGMMAA@$o7STRINGA$xqv                                                   @130  ;  GGMMAA::operator STRINGA() const
+ @INFO_NOTE@ApplicabileATratta$qii                                        @131  ;  INFO_NOTE::ApplicabileATratta(int,int)
+ @MM_SOLUZIONE@DataPartenza$quc                                           @132  ;  MM_SOLUZIONE::DataPartenza(unsigned char)
+ @MM_SOLUZIONE@DataArrivo$quc                                             @133  ;  MM_SOLUZIONE::DataArrivo(unsigned char)
+ @MM_SOLUZIONE@DataPartenzaMezzoVirtuale$quc                              @134  ;  MM_SOLUZIONE::DataPartenzaMezzoVirtuale(unsigned char)
+ @MM_SOLUZIONE@$bnew$qui                                                  @135  ;  MM_SOLUZIONE::operator new(unsigned int)
+ @MM_SOLUZIONE@$bdele$qpv                                                 @136  ;  MM_SOLUZIONE::operator delete(void near*)
+ @MM_SOLUZIONE@Trace$qrx7STRINGAi                                         @137  ;  MM_SOLUZIONE::Trace(const STRINGA near&,int)
+ @SOLUZIONE@GetNote$qv                                                    @138  ;  SOLUZIONE::GetNote()
+ @ARRAY_ID@Trace$qr5GRAFOrx7STRINGAi                                      @139  ;  ARRAY_ID::Trace(GRAFO near&,const STRINGA near&,int)
+ _LastBeep                                                                @140  ; 
+ @Cronometra$qulrul                                                       @141  ;  Cronometra(unsigned long,unsigned long near&)
+ @ChkSegnala$quiuii                                                       @142  ;  ChkSegnala(unsigned int,unsigned int,int)
+ @GetTimestampDll$qpxc                                                    @143  ;  GetTimestampDll(const char near*)
+ @PROFILER@Cronometra$qusul                                               @144  ;  PROFILER::Cronometra(unsigned short,unsigned long)
+ @PROFILER@Clear$qul                                                      @145  ;  PROFILER::Clear(unsigned long)
+ @PROFILER@Clear$qusul                                                    @146  ;  PROFILER::Clear(unsigned short,unsigned long)
+ @PROFILER@Acquire$qul                                                    @147  ;  PROFILER::Acquire(unsigned long)
+ @PROFILER@GetTotale$qul                                                  @148  ;  PROFILER::GetTotale(unsigned long)
+ @PROFILER@GetTotale$qusul                                                @149  ;  PROFILER::GetTotale(unsigned short,unsigned long)
+ @PROFILER@Trace$quli                                                     @150  ;  PROFILER::Trace(unsigned long,int)
+ @PROFILER@Trace$qusuli                                                   @151  ;  PROFILER::Trace(unsigned short,unsigned long,int)
+ @PROFILER@PutStdOut$qul                                                  @152  ;  PROFILER::PutStdOut(unsigned long)
+ @PROFILER@AttivaDescrizioniMotore$qv                                     @153  ;  PROFILER::AttivaDescrizioniMotore()
+ @PROFILER@Descrizioni                                                    @154  ;  PROFILER::Descrizioni
+ @PROFILER@Buffers                                                        @155  ;  PROFILER::Buffers
+ @PROFILER@NumProfilers                                                   @156  ;  PROFILER::NumProfilers
+ @PROFILER@Freq                                                           @157  ;  PROFILER::Freq
+ @PROFILER@Delay                                                          @158  ;  PROFILER::Delay
+ @PROFILER@NumCall                                                        @159  ;  PROFILER::NumCall
+ @PROFILER@TotCall                                                        @160  ;  PROFILER::TotCall
+ @PROFILER@DelayPer1000Call                                               @161  ;  PROFILER::DelayPer1000Call
+ @CLASSIFICA_TRENI@Classifiche                                            @162  ;  CLASSIFICA_TRENI::Classifiche
+ @CLASSIFICA_TRENI@CaricaClassifiche$qrx7STRINGA                          @163  ;  CLASSIFICA_TRENI::CaricaClassifiche(const STRINGA near&)
+ @CLASSIFICA_TRENI@LiberaClassifiche$qv                                   @164  ;  CLASSIFICA_TRENI::LiberaClassifiche()
+ @MM_INFO@EncodTipoMezzo$qrx7STRINGA                                      @165  ;  MM_INFO::EncodTipoMezzo(const STRINGA near&)
+ @MM_INFO@DecodTipoMezzo$quc                                              @166  ;  MM_INFO::DecodTipoMezzo(unsigned char)
+ @MM_INFO@DecodificaPerFontStandard$xqr7STRINGAt1t1                       @167  ;  MM_INFO::DecodificaPerFontStandard(STRINGA near&,STRINGA near&,STRINGA near&) const
+ @MM_INFO@LettiOCuccette$xqv                                              @168  ;  MM_INFO::LettiOCuccette() const
+ @MM_INFO@IsServizio$quc                                                  @169  ;  MM_INFO::IsServizio(unsigned char)
+ @MM_INFO@TestServizio$xquc                                               @170  ;  MM_INFO::TestServizio(unsigned char) const
+ @MM_INFO@SetServizio$quc                                                 @171  ;  MM_INFO::SetServizio(unsigned char)
+ @MM_INFO@ReSetServizio$quc                                               @172  ;  MM_INFO::ReSetServizio(unsigned char)
+ @MM_INFO@DecServizio$qucul                                               @173  ;  MM_INFO::DecServizio(unsigned char,unsigned long)
+ @MM_INFO@Decodifica$qul                                                  @174  ;  MM_INFO::Decodifica(unsigned long)
+ @MM_INFO@DecodificaServizi$qv                                            @175  ;  MM_INFO::DecodificaServizi()
+ @MM_INFO@CombinaTratta$qrx7MM_INFO                                       @176  ;  MM_INFO::CombinaTratta(const MM_INFO near&)
+ @MM_INFO@Empty$qv                                                        @177  ;  MM_INFO::Empty()
+ @MM_INFO@EmptyServizi$qv                                                 @178  ;  MM_INFO::EmptyServizi()
+ @MM_INFO@$brand$qrx7MM_INFO                                              @179  ;  MM_INFO::operator &=(const MM_INFO near&)
+ @MM_INFO@$bror$qrx7MM_INFO                                               @180  ;  MM_INFO::operator |=(const MM_INFO near&)
+ @MM_INFO@NotIn$qrx7MM_INFOul                                             @181  ;  MM_INFO::NotIn(const MM_INFO near&,unsigned long)
+ @FontPeriodicita$q15TIPOPERIODICITA                                      @182  ;  FontPeriodicita(TIPOPERIODICITA)
+ @SegnalaAssert$qpcpxct1i                                                 @183  ;  SegnalaAssert(char near*,const char near*,char near*,int)

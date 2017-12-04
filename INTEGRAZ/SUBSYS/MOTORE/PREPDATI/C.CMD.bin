@@ -1,0 +1,5 @@
+@setlocal
+@if exist %1.c   set pgm=%1.c
+@if exist %1.cpp set pgm=%1.cpp
+bcc +d:\motore1\source\optim.cfg -y- -v- %pgm%  %2 %3 %4 %5 %6 %7 %8 %9 OOLIB.LIB OOLIB2.LIB UTENTE.LIB SIPAX.LIB
+

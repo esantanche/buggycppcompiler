@@ -1,0 +1,159 @@
+# makefile
+# Created by IBM WorkFrame/2 MakeMake at 11:48:42 on 22/08/97
+#
+# The actions included in this make file are:
+#  Compile
+#  Link
+
+.SUFFIXES:
+
+.all: \
+    .\baselib.lib
+
+.\UTENTE.obj: \
+    D:\ems\baselib\source\UTENTE.C \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.H \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\UTENTE.C
+
+.\TRC3.obj: \
+    D:\ems\baselib\source\TRC3.C
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\TRC3.C
+
+.\TRC2.obj: \
+    D:\ems\baselib\source\TRC2.C \
+    {D:\ems\baselib\source;$(INCLUDE);}std.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\TRC2.C
+
+.\TRACE.obj: \
+    D:\ems\baselib\source\TRACE.C \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.h \
+    {D:\ems\baselib\source;$(INCLUDE);}elenco.h \
+    {D:\ems\baselib\source;$(INCLUDE);}elenco_s.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\TRACE.C
+
+.\STRINGA.obj: \
+    D:\ems\baselib\source\STRINGA.C \
+    {D:\ems\baselib\source;$(INCLUDE);}ELENCO_S.H \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\STRINGA.C
+
+.\scandir.obj: \
+    D:\ems\baselib\source\scandir.c \
+    {D:\ems\baselib\source;$(INCLUDE);}scandir.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\scandir.c
+
+.\OGGETTO.obj: \
+    D:\ems\baselib\source\OGGETTO.C \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.h \
+    {D:\ems\baselib\source;$(INCLUDE);}elenco_o.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\OGGETTO.C
+
+.\MYALLOC.obj: \
+    D:\ems\baselib\source\MYALLOC.C \
+    {D:\ems\baselib\source;$(INCLUDE);}myalloc.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\MYALLOC.C
+
+.\FILE_RW.obj: \
+    D:\ems\baselib\source\FILE_RW.CPP \
+    {D:\ems\baselib\source;$(INCLUDE);}std.h \
+    {D:\ems\baselib\source;$(INCLUDE);}BASE.HPP \
+    {D:\ems\baselib\source;$(INCLUDE);}file_rw.HPP \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\FILE_RW.CPP
+
+.\ELENCO_S.obj: \
+    D:\ems\baselib\source\ELENCO_S.C \
+    {D:\ems\baselib\source;$(INCLUDE);}ELENCO_S.H \
+    {D:\ems\baselib\source;$(INCLUDE);}MINMAX.H \
+    {D:\ems\baselib\source;$(INCLUDE);}myalloc.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\ELENCO_S.C
+
+.\ELENCO_O.obj: \
+    D:\ems\baselib\source\ELENCO_O.C \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.h \
+    {D:\ems\baselib\source;$(INCLUDE);}minmax.h \
+    {D:\ems\baselib\source;$(INCLUDE);}myalloc.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\ELENCO_O.C
+
+.\ELENCO.obj: \
+    D:\ems\baselib\source\ELENCO.C \
+    {D:\ems\baselib\source;$(INCLUDE);}elenco.h \
+    {D:\ems\baselib\source;$(INCLUDE);}minmax.h \
+    {D:\ems\baselib\source;$(INCLUDE);}myalloc.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\ELENCO.C
+
+.\CHNTEMPL.obj: \
+    D:\ems\baselib\source\CHNTEMPL.CPP \
+    {D:\ems\baselib\source;$(INCLUDE);}std.h \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.h \
+    {D:\ems\baselib\source;$(INCLUDE);}FILE_RW.HPP \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h \
+    {D:\ems\baselib\source;$(INCLUDE);}base.hpp
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\CHNTEMPL.CPP
+
+.\BUFR.obj: \
+    D:\ems\baselib\source\BUFR.CPP \
+    {D:\ems\baselib\source;$(INCLUDE);}base.hpp \
+    {D:\ems\baselib\source;$(INCLUDE);}id_stazi.hpp \
+    {D:\ems\baselib\source;$(INCLUDE);}string.H \
+    {D:\ems\baselib\source;$(INCLUDE);}FILE_RW.HPP
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\BUFR.CPP
+
+.\ALL_ALL.obj: \
+    D:\ems\baselib\source\ALL_ALL.C \
+    {D:\ems\baselib\source;$(INCLUDE);}oggetto.h \
+    {D:\ems\baselib\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\baselib\source\ALL_ALL.C
+
+.\FILE.obj: \
+    D:\ems\porting\source\FILE.C \
+    {D:\ems\porting\source;$(INCLUDE);}windows.h \
+    {D:\ems\porting\source;$(INCLUDE);}bsedos.h \
+    {D:\ems\porting\source;$(INCLUDE);}bseerr.h \
+    {D:\ems\porting\source;$(INCLUDE);}trc2.h \
+    {D:\ems\porting\source;$(INCLUDE);}dummy.h
+    @echo " Compile "
+    icc.exe /Gd /qwin32s  /Gm /D__EXTENDED__ /DOKTRACE /Tdp /Sc /Su4 /Sp1 /Ti  /Fo".\%|fF.obj" /C D:\ems\porting\source\FILE.C
+
+.\baselib.lib: \
+    .\UTENTE.obj \
+    .\FILE.obj \
+    .\ALL_ALL.obj \
+    .\BUFR.obj \
+    .\CHNTEMPL.obj \
+    .\ELENCO.obj \
+    .\ELENCO_O.obj \
+    .\ELENCO_S.obj \
+    .\FILE_RW.obj \
+    .\MYALLOC.obj \
+    .\OGGETTO.obj \
+    .\scandir.obj \
+    .\STRINGA.obj \
+    .\TRACE.obj \
+    .\TRC2.obj \
+    .\TRC3.obj
+    emakelib baselib

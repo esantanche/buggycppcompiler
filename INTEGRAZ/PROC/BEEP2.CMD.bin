@@ -1,0 +1,3 @@
+/* BEEP di attenzione */
+   call beep 1000,1000
+

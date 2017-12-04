@@ -1,0 +1,136 @@
+/* Precompilazione files SQC */
+ARG Modulo DataBase Compila DBA8
+say "Chiamato Prep: Modulo "Modulo" Database "Database" Richiesta compilazione CPP: "Compila
+env = 'OS2ENVIRONMENT'
+TestRoot = value(TEST_ROOT,,env)
+TrueTarget = value(TRUE_TARGET,,env)
+ItgDrive = value(ITG_DRIVE,,env)
+TmpDrive = value(TMP_DRIVE,,env)
+RemotePrep = value(REMOTE_PREP,,env)
+ExtCFG = value(EXT_CFG,,env)
+if ExtCFG = "" then ExtCFG = "CFG"
+BNDDIR = value(BIND_DIR,,env)
+if TmpDrive = "" then do
+   TmpDrive = ItgDrive
+end
+if substr(Modulo,1,2) = ".\" then Modulo = substr(Modulo,3)
+del TmpDrive"\WRK\"Modulo".obj"
+if BNDDIR = "" then DO
+   if value(TEST,,env) = 'SI' then BNDDIR=TestRoot"\PSQL"
+                              else BNDDIR=TrueTarget"\GENERALE\ISTALL.100"
+END
+db7 = substr(DataBase,1,7)
+DBA = substr(DBA8,1,7)
+if db7 = DBIMPIA | db7 = DBSIPAX | db7 = QUALITA THEN
+   DO
+     Result1 = TmsCompare(Modulo".sqc",Modulo".c")
+     Result2 = TmsCompare(Modulo".c",bnddir"\BND\"DB7"\"Modulo".bnd","SILENT1")
+     /* say "result1 = '"result1"' result2 = '"result2"'" */
+     if Result1 = '>' | Result2 <> '=' then DO
+        if RemotePrep == "" then DO
+           sqlprep Modulo".sqc" DataBase " /b"BNDDIR"\BND\"DB7"\"Modulo".bnd /p /F=ISO /#"
+           rc1 = rc
+           END
+        else  DO
+           "@copy" Modulo".sqc "RemotePrep"\tmp\*.*"
+           say "sqlprep" Modulo".sqc" DataBase " /b"BNDDIR"\BND\"DB7"\"Modulo".bnd /p /F=ISO /#"
+           "npclient srv1test TEST -PASSWORD" "MYCMD sqlprep "RemotePrep"\tmp\"Modulo".sqc" DataBase " /b"RemotePrep"\tmp\"Modulo".bnd /p /F=ISO /#"
+           Dmy = STREAM(RemotePrep"\TMP\RESULT","c","open")
+           RC1 = CHARIN(RemotePrep"\TMP\RESULT",1,5)
+           Dmy = STREAM(RemotePrep"\TMP\RESULT","c","close")
+           if rc1 == 0 then do
+              "copy "RemotePrep"\tmp\"modulo".c .\*.*"
+              "copy "RemotePrep"\tmp\"modulo".bnd" BNDDIR"\BND\"DB7"\"Modulo".bnd"
+           end
+           "@del "RemotePrep"\tmp\*.* /n"
+           END
+        say "RC = " rc1
+        END
+     else
+        rc1=0
+    if rc1 = 0 THEN DO
+          if Compila = SI then
+          do
+             bcc "+"ItgDrive"\INTEGRAZ\proc\sipax."ExtCFG" -c " Modulo".cpp"
+             rc1 = rc
+          end /* do */
+          if DBA <> "" & DBA <> "NESSUNO"  then do
+             /* SE GIA' ESISTE IL FILE BND SUL DB ALTERNATIVO ESEGUO IL BIND */
+             Result3 = TmsCompare2(Modulo".c",bnddir"\BND\"DBA"\"Modulo".bnd")
+             if Result3 ==  ">" then do
+                say "   Allineamento bind su database "DBA8
+                say "   dbm bind "bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO"
+                if RemotePrep == "" then DO
+                   Res3 = dbm("bind" bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO")
+                   END
+                ELSE DO
+                   "@copy" bnddir"\BND\"DB7"\"Modulo".bnd "RemotePrep"\tmp\*.*"
+                   "npclient srv1test TEST -PASSWORD MYREXX rc=dbm('bind "RemotePrep"\tmp\"Modulo".bnd to database" DBA8 "USING DATETIME ISO')"
+                   Dmy  = STREAM(RemotePrep"\TMP\RESULT","c","open")
+                   Res3 = CHARIN(RemotePrep"\TMP\RESULT",1,5)
+                   Dmy  = STREAM(RemotePrep"\TMP\RESULT","c","close")
+                   "@del "RemotePrep"\tmp\*.* /n"
+                   END
+                if Res3 = 0 then do
+                  copy bnddir"\BND\"DB7"\"Modulo".bnd" bnddir"\BND\"DBA"\"Modulo".bnd"
+                end
+                else do
+                  Say "Fallito il bind su db ALTERNATIVO "DBA8
+                end
+                rc1 = Res3
+             end  /* Do */
+          end  /* Do */
+       end /* do */
+    END
+    SAY "Prep: Rc = " rc1
+    EXIT rc1
+  END
+ELSE 
+DO
+  SAY "ERRORE: il database " DataBase " non e' un database presente nel SIPAX"
+    SAY "Prep: Rc = 1"
+  exit 1
+END
+SingleCompare:
+ AA = substr(arg(1),arg(3),arg(4))
+ BB = substr(arg(2),arg(3),arg(4))
+ /* say arg(5)"=  First:"AA "Second:"BB */
+ if AA <> BB then
+    do
+       if AA > BB then
+          return '>'
+       else
+          return "<"
+    end
+ return '='
+TmsCompare:
+ a = stream(arg(1),'c','query datetime')
+   if arg(3) = "" then say "Timestamp" arg(1) "=" a 
+ b = stream(arg(2),'c','query datetime')
+   say "Timestamp" arg(2) "=" b
+ if a = '' | b = '' then return '>'
+
+ Res = SingleCompare(a,b,7,2,"Anno")
+ if(Res = "=") then Res = SingleCompare(a,b,1,2,"Mese")
+ if(Res = "=") then Res = SingleCompare(a,b,4,2,"Giorno")
+ if(Res = "=") then Res = SingleCompare(a,b,11,8,"Ora")
+ return Res
+TmsCompare2:
+ /* say "TmsCompare("arg(1)","arg(2)","arg(3)")" */
+ Res = '='
+ a = stream(arg(1),'c','query datetime')
+ b = stream(arg(2),'c','query datetime')
+ if a = '' then Res = 'NoC'     /* C file non esistente   : OK  */
+ if b = '' then Res = 'NoBnd'   /* bnd File Non Esistente : KO   (oppure entrambi) */
+
+ if(Res = "=") then Res = SingleCompare(a,b,7,2,"Anno")
+ if(Res = "=") then Res = SingleCompare(a,b,1,2,"Mese")
+ if(Res = "=") then Res = SingleCompare(a,b,4,2,"Giorno")
+ if(Res = "=") then Res = SingleCompare(a,b,11,8,"Ora")
+ if Res <> '=' then do
+   if arg(3) = "" then say "   Timestamp" arg(1) "=" a
+   say "   Timestamp" arg(2) "=" b
+ end  /* Do */
+ /* Say "Res: '"Res"'" */
+ return Res
+

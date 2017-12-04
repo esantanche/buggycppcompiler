@@ -1,0 +1,12 @@
+@echo off
+echo .........................................................
+echo Procedura per ricostruzione motore.DEF
+echo .........................................................
+setlocal
+SET SIPAX_VERSION=Sipax 312
+SET SIPAX_LEV_NUMBER= Versione Maggio 1995
+SET SIPAX_PATH_DLL=D:\SIPAX\BIN
+SET SIPAX_PATH_DEF=D:\INTEGRAZ\SUBSYS\MOTORE\SOURCE
+
+GENERDEF MOTORE3.DEF       "Modello Orario Tariffe E Polimetriche" 
+

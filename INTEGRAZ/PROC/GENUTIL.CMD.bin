@@ -1,0 +1,41 @@
+@echo off
+echo ---------------------------------------------------
+echo Procedura di compilazione utilities OOLIB
+echo ---------------------------------------------------
+echo .
+setlocal
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\OOTOOL\SOURCE
+set MDL1= OBSTOOL OOTOOL PRINTOUT REORG DIM_CLA CLASSI 
+set MDL2= obstool ootool printout reorg dim_cla classi 
+if %1. == ALL. goto all
+if %1. == all. goto all
+if %1. == . goto NONSO
+:LOOP
+if %1. == . goto fine
+set OK=
+for %%a in ( %MDL1% %MDL2% )  do if %1. == %%a. set OK=SI
+if %OK%. == . GOTO NONSO
+
+echo on
+@call mk %1
+shift
+@echo off
+goto LOOP
+
+:all
+echo START >%ITG_DRIVE%\INTEGRAZ\PROC\RESULT\GENUTIL.ALL
+for %%a in ( %MDL1% )  do call mk %%a
+goto fine
+
+rem  **************************************************
+REM  NONSO
+rem  **************************************************
+:NONSO
+echo 
+echo Non indentificato target %1. Valori corretti sono %MDL1% %VIEW1%
+echo
+shift
+goto LOOP
+:FINE
+

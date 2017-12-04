@@ -1,0 +1,26 @@
+@echo "**************************************************"
+@echo "Utilizzo:                                         "
+@echo "TUTTO    -> Compila TUTTO , aggiorna i sorgenti   "
+@echo "TUTTO SI -> Compila TUTTO , sostituisce i sorgenti"
+@echo "            piu' vecchi archiviati(2 versioni)    "
+@echo "**************************************************"
+@echo Comando dato : TUTTO %1
+@echo OK ?
+@pause
+goto start
+:start
+call buildall
+rem questi sono gli OBS contenenti solo aree di SCP
+xcopy c:\integraz\subsys\qualita\source\qs*.obs c:\sipax\bin\*.*
+xcopy c:\integraz\subsys\contab\source\dbtohost.obs c:\sipax\bin\*.*
+call rilascio LAVORO
+call rilascio RILASCIO
+call GOO
+d:
+call buildall
+xcopy c:\integraz\subsys\qualita\source\qs*.obs x:\rilascio.itg\bin\*.*
+xcopy c:\integraz\subsys\contab\source\dbtohost.obs x:\rilascio.itg\bin\*.* 
+call rilascio SOURCE %1
+goto fine
+:fine
+

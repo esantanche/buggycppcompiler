@@ -1,0 +1,20 @@
+if %1. == run. goto run
+if %1. == RUN. goto run
+call c2 DU_MYSTA
+call c2 DU_MYCLU
+call c2 DU_CLUST
+call c2 DU_CLUMV
+call c2 DU_TRENV
+call c2 DU_FERMV
+call c2 DU_FERNU
+call c2 DU_FERM2
+goto fine
+:RUN
+DU_MYSTA
+DU_MYCLU
+DU_CLUST
+DU_CLUMV
+DU_TRENV
+DU_FERNU
+:FINE
+

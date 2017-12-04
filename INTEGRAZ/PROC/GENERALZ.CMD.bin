@@ -1,0 +1,170 @@
+@echo off
+echo  -----------------------------------------------------
+echo  Procedura di compilazione dei generalizzati del SIPAX
+echo  e delle utility necessarie per sviluppo
+echo  -----------------------------------------------------
+echo .
+@setlocal
+@if %EXT_CFG%. == . set EXT_CFG=CFG
+%ITG_DRIVE%
+if %TMP_DRIVE%. == . TMP_DRIVE=%ITG_DRIVE%
+if %1. == ALL. goto all
+if %1. == all. goto all
+@set OK1= SIPAX BASE MOTORE SCP OOLIB OOLIB2 UTENTE OBSTOHTL DMPGET SEE2 GENERDEF MINIH
+@set ok2= sipax base motore scp oolib oolib2 utente obstohtl dmpget see2 generdef minih
+goto LOOP
+
+:ALL
+echo START >%ITG_DRIVE%\INTEGRAZ\PROC\RESULT\GENERALZ.ALL
+set ALL=SI
+goto SEE2
+
+:UTENTE
+cd \INTEGRAZ\SUBSYS\UTENTE\SOURCE
+call mk utente
+goto fine
+
+:OOLIB
+cd \INTEGRAZ\SUBSYS\OOLIB\SOURCE
+call mk OOLIB
+goto fine
+
+:OOLIB2
+cd \INTEGRAZ\SUBSYS\OOLIB\SOURCE
+call mk OOLIB2
+goto fine
+
+rem  **************************************************
+REM  LOOP
+rem  **************************************************
+:LOOP
+@for %%a in ( %OK1% ) do @if %1. == %%a. goto %%a
+@for %%a in ( %OK2% ) do @if %1. == %%a. goto %%a
+GOTO NONSO
+
+rem  **************************************************
+REM  NONSO
+rem  **************************************************
+:NONSO
+echo 
+echo Non indentificato target '%1' Valori corretti sono %OK1%
+echo
+if %1. == . goto fine
+rem  **************************************************
+REM  NEXT
+rem  **************************************************
+:NEXT
+shift
+if %1. == . goto fine
+goto LOOP
+
+// -----------------
+// SEE2
+// -----------------
+:SEE2
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\INTEGRAZ\SOURCE
+call c SEE2
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// MINIH
+// -----------------
+:MINIH
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\INTEGRAZ\SOURCE
+call c minih oolib.lib oolib2.lib utente.lib
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// BASE
+// -----------------
+// Questi due moduli vanno compilati insieme perche' si referenziano circolarmente
+:BASE
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\OOLIB\SOURCE
+call mk oolib2
+call mk oolib
+cd \INTEGRAZ\SUBSYS\UTENTE\SOURCE
+call mk utente
+rem per le dipendenze circolari
+echo Y >%TMP_DRIVE%\WRK\BASE.TMP
+if %TEST%. == SI. goto TESTSI
+:TESTNO
+touch2 %TRUE_TARGET%\generale\generalz.100\utente.dll        -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %TRUE_TARGET%\generale\generalz.100\utente.dmp        -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %TRUE_TARGET%\generale\generalz.100\oolib.dll         -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %TRUE_TARGET%\generale\generalz.100\oolib.dmp         -F%TMP_DRIVE%\WRK\BASE.TMP
+goto TESTEND
+:TESTSI
+touch2 %ITG_DRIVE%\SIPAX\BIN\utente.dll                      -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %ITG_DRIVE%\SIPAX\BIN\utente.dmp                      -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %ITG_DRIVE%\SIPAX\BIN\oolib.dll                       -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %ITG_DRIVE%\SIPAX\BIN\oolib.dmp                       -F%TMP_DRIVE%\WRK\BASE.TMP
+goto TESTEND
+:TESTEND
+touch2 %TMP_DRIVE%\WRK\lib\utente.lib                        -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %ITG_DRIVE%\INTEGRAZ\SUBSYS\UTENTE\SOURCE\UTENTE.LNK  -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %TMP_DRIVE%\WRK\lib\oolib2.lib                        -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %TMP_DRIVE%\WRK\lib\oolib.lib                         -F%TMP_DRIVE%\WRK\BASE.TMP
+touch2 %ITG_DRIVE%\INTEGRAZ\SUBSYS\OOLIB\source\oolib.lnk    -F%TMP_DRIVE%\WRK\BASE.TMP
+del %TMP_DRIVE%\WRK\BASE.TMP
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// SIPAX
+// -----------------
+:SIPAX
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\SIPAX\SOURCE
+call mk sipax
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// DMPGET
+// -----------------
+:DMPGET
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\OOLIB\SOURCE
+bcc +%ITG_DRIVE%\integraz\proc\sipax.%ext_cfg% dmpget.c oolib.lib utente.lib
+copy %TMP_DRIVE%\wrk\dmpget.exe %ITG_DRIVE%\integraz\PROC\*.*
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// GENERDEF
+// -----------------
+:GENERDEF
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\INTEGRAZ\SOURCE
+bcc +%ITG_DRIVE%\integraz\proc\sipax.%ext_cfg% GENERDEF.cpp oolib.lib utente.lib 
+copy %TMP_DRIVE%\wrk\GENERDEF.exe %ITG_DRIVE%\integraz\PROC\*.*
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// OBSTOHTL
+// -----------------
+:OBSTOHTL
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\OOTOOL\SOURCE
+call mk OBSTOHTL
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// SCP
+// -----------------
+:SCP
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\SCP\SOURCE
+call mk api
+call mk scpHSH
+call mk scpCFG
+call mk ooscplib
+@if not %ALL%. == SI. goto NEXT
+// -----------------
+// MOTORE
+// -----------------
+:MOTORE
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\MOTORE\SOURCE
+ call mk motore
+@if not %ALL%. == SI. goto NEXT
+
+goto fine
+
+
+
+:FINE
+

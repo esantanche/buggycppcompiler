@@ -1,0 +1,134 @@
+/* Controllo generale date dei moduli BND */
+ARG DataBase  DBA8 Objects
+env = 'OS2ENVIRONMENT'
+TestRoot = value(TEST_ROOT,,env)
+TrueTarget = value(TRUE_TARGET,,env)
+ItgDrive = value(ITG_DRIVE,,env)
+TmpDrive = value(TMP_DRIVE,,env)
+BNDDIR = value(BIND_DIR,,env)
+if TmpDrive = "" then DO
+   TmpDrive = ItgDrive
+END
+if BNDDIR = "" then DO
+   if value(TEST,,env) = 'SI' then BNDDIR=TestRoot"\PSQL"
+                              else BNDDIR=TrueTarget"\GENERALE\ISTALL.100"
+END
+db7 = substr(DataBase,1,7)
+DBA = substr(DBA8,1,7)
+Retc=0
+if DBA <> "NESSUNO" then 
+   say " SQCVFY " Database "..."   "(DB Alternativo = '"DBA"')"
+else
+   say " SQCVFY " Database "..."
+if db7 = DBIMPIA | db7 = DBSIPAX | db7 = QUALITA THEN DO
+   Count = Words(Objects)
+   DO i=1 to Count
+     Nom = Word(Objects,i)
+     Modulo = left(Nom,LASTPOS(".",Nom)-1)
+     /* say "Modulo=" modulo */
+     if Size(TmpDrive"\WRK\"Modulo".obj") = 0 then DO
+       say "camcellazione "modulo".obj di dimensione 0 (situazione non corretta)"
+       "del "TmpDrive"\WRK\"Modulo".obj" /* Abend del Borland */
+     END
+     if Esiste(Modulo".sqc") then DO
+        say "MODULO SQC : "Modulo".SQC"
+        Result1 = TmsCompare(Modulo".c",bnddir"\BND\"DB7"\"Modulo".bnd")
+        if DBA <> "NESSUNO" then DO
+          if  Result1 = "=" then
+             Result2 = TmsCompare(Modulo".c",bnddir"\BND\"DBA"\"Modulo".bnd")
+          else
+             Result2 = TmsCompare(Modulo".c",bnddir"\BND\"DBA"\"Modulo".bnd","SILENT1")
+        END
+        if Result1 <> "="  & Result1 <> "NoC"  then DO
+          if DBA = "NESSUNO" then DO
+             say "   Cancellazione di " Modulo".c" 
+             del Modulo".c" /* Forzo prossima precompilazione */
+             del TmpDrive"\WRK\"Modulo".OBJ" /* Forzo prossima compilazione */
+          END
+          else DO
+             if Result2 = "=" then DO
+                say "   Allineamento bind da database "DBA8
+                say "   dbm bind "bnddir"\BND\"DBA"\"Modulo".bnd" to "database" database "USING DATETIME ISO"
+                Res = dbm("bind" bnddir"\BND\"DBA"\"Modulo".bnd" to "database" database "USING DATETIME ISO" )
+                if Res = 0 then 
+                  copy bnddir"\BND\"DBA"\"Modulo".bnd" bnddir"\BND\"DB7"\"Modulo".bnd"
+                else DO
+                  stopdbm
+                  startdbm
+                  /* Faccio un retry (uno solo ) */
+                  Res = dbm("bind" bnddir"\BND\"DBA"\"Modulo".bnd" to "database" database "USING DATETIME ISO" )
+                  if Res = 0 then 
+                     copy bnddir"\BND\"DBA"\"Modulo".bnd" bnddir"\BND\"DB7"\"Modulo".bnd"
+                  else DO
+                     /* Se impostata la variabile FOR_BINDALL vado avanti: poi faro' un BINDALL */
+                     /* Necessario perche' a volte si impianta terribilmente */
+                     if value(FOR_BINDALL,,env) <> "" then DO
+                        say "FOR_BINDALL: Copio comunque il BND e non DO errore"
+                        copy bnddir"\BND\"DBA"\"Modulo".bnd" bnddir"\BND\"DB7"\"Modulo".bnd"
+                     END
+                     else
+                        Retc = 99
+                  END
+                END
+             END
+             else DO
+                say "   Cancellazione di " Modulo".c" /* Forzo prossima precompilazione */
+                del Modulo".c" /* Forzo prossima precompilazione */
+                del TmpDrive"\WRK\"Modulo".OBJ" /* Forzo prossima compilazione */
+             END  
+          END  
+        END
+        /* SE GIA' ESISTE IL FILE BND SUL DB ALTERNATIVO ESEGUO IL BIND */
+        if (Result1 = "=") & (Result2 = ">")  then DO
+           say "   Allineamento bind su database "DBA8
+           say "   dbm bind "bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO"
+           Res3 = dbm("bind" bnddir"\BND\"DB7"\"Modulo".bnd" to "database" DBA8 "USING DATETIME ISO")
+           if Res3 = 0 then
+             copy bnddir"\BND\"DB7"\"Modulo".bnd" bnddir"\BND\"DBA"\"Modulo".bnd"
+           else 
+             Say "Fallito il bind su db ALTERNATIVO "DBA8" procedo comunque"
+        END
+     END 
+   END
+END
+ELSE DO
+  SAY "ERRORE: il database " DataBase " non e' un database presente nel SIPAX"
+  exit 1
+END
+exit Retc
+
+SingleCompare:
+ AA = substr(arg(1),arg(3),arg(4))
+ BB = substr(arg(2),arg(3),arg(4))
+ /* say arg(5)"=  First:"AA "Second:"BB */
+ if AA <> BB then
+    DO
+       if AA > BB then
+          return '>'
+       else
+          return "<"
+    END
+ return '='
+TmsCompare:
+ /* say "TmsCompare("arg(1)","arg(2)","arg(3)")" */
+ Res = '='
+ a = stream(arg(1),'c','query datetime')
+ b = stream(arg(2),'c','query datetime')
+ if a = '' then Res = 'NoC'     /* C file non esistente   : OK  */
+ if b = '' then Res = 'NoBnd'   /* bnd File Non Esistente : KO   (oppure entrambi) */
+
+ if(Res = "=") then Res = SingleCompare(a,b,7,2,"Anno")
+ if(Res = "=") then Res = SingleCompare(a,b,1,2,"Mese")
+ if(Res = "=") then Res = SingleCompare(a,b,4,2,"Giorno")
+ if(Res = "=") then Res = SingleCompare(a,b,11,8,"Ora")
+ if Res <> '=' then DO
+   if arg(3) = "" then say "   Timestamp" arg(1) "=" a
+   say "   Timestamp" arg(2) "=" b
+ END 
+ /* Say "Res: '"Res"'" */
+ return Res
+Esiste:
+ return (stream(arg(1),'c','query exists') <> "")
+Size:
+ return stream(arg(1),'c','query size')
+

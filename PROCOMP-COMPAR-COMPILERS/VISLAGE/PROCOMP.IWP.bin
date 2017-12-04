@@ -1,0 +1,16 @@
+-ProjectInfo
++name=Default VisualAge C++ Project
++type=VACPP.IWS
+-BuildInfo
++target=target.exe
++runOptions=
++makefile=makefile
+-LocationInfo
++defaultDir=d:\\ems\\procomp\\vislage
++dirs=d:\\ems\\procomp\\vislage
+-ConfigInfo
++filter=*
++position=2 3 3000 3000 -4 -4 25 175 558 575
+-Environment
++var1=INCLUDE=%INCLUDE%;.;
+

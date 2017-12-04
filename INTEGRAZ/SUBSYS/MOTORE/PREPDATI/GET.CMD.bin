@@ -1,0 +1,4 @@
+xcopy y:\file_t\out\*.out   D:\file_t\out\*.*
+xcopy y:\file_t\out\*.tmp   D:\file_t\out\*.*
+rem xcopy y:\file_t\out\*.trc   D:\file_t\out\*.*
+

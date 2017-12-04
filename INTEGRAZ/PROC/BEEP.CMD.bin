@@ -1,0 +1,17 @@
+/* BEEP */
+/* C scale */
+ note.1 = 262    /* middle C */
+ note.2 = 294    /*    D     */
+ note.3 = 330    /*    E     */
+ note.4 = 349    /*    F     */
+ note.5 = 392    /*    G     */
+ note.6 = 440    /*    A     */
+ note.7 = 494    /*    B     */
+ note.8 = 524    /*    C     */
+ 
+ do i=1 to 8
+   call beep note.i,250    /* hold each note for */
+                           /* one-quarter second */
+ end
+ exit 1
+

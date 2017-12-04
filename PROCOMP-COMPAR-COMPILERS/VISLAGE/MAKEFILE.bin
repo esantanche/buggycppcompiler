@@ -1,0 +1,28 @@
+# makefile
+# Created by IBM WorkFrame/2 MakeMake at 15:52:11 on 08/10/97
+#
+# The actions included in this make file are:
+#  Compile
+#  Link
+
+.SUFFIXES:
+
+.all: \
+    .\target.exe
+
+.\comptest.obj: \
+    d:\ems\procomp\vislage\comptest.cpp \
+    {d:\ems\procomp\vislage;$(INCLUDE);}comptest.hpp \
+    {d:\ems\procomp\vislage;$(INCLUDE);}winport.hpp
+    @echo " Compile "
+    icc.exe /Tdp /Sc /Su4 /Sp1 -qbitfields=signed /Ti /Fo".\%|fF.obj" /C d:\ems\procomp\vislage\comptest.cpp
+
+.\target.exe: \
+    .\comptest.obj
+    @echo " Link "
+    icc.exe @<<
+     /B" /de /code:RX /data:RW"
+     /B" /def"
+     /Fetarget.exe 
+     .\comptest.obj
+<<

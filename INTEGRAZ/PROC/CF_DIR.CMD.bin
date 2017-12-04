@@ -1,0 +1,78 @@
+/* CF_DIR OldFilePattern NewDir
+  Confronta tutti i files ripondenti ad OldFilePattern e NewDir
+
+  Produce un output in cui indica:
+
+   - I files presenti su OldFilePattern e non su NewDir
+   - I files presenti su NewDir e non su OldFilePattern
+   - I files presenti su entrambi le directories ma che sono differenti.
+
+
+*/
+arg OldFilePattern NewDir
+   OldFilePattern =STRIP(OldFilePattern)
+   NewDir =STRIP(NewDir)
+   if NewDir = "" then DO
+      SAY "=========================================================="
+      SAY "===================    CF_DIR      ======================="
+      SAY "=========================================================="
+      SAY "Procedura di confronto tra due directories"
+      SAY "Primo parametro: pattern dei files sulla VECCHIA directory "
+      SAY "Secondo parametro: NUOVA directory"
+      SAY ""
+      SAY "Esempio: CF_DIR D:\VER_1\RILASCIO.ITG\BIN\*.DLL Y:\RILASCIO.ITG\BIN\*.DLL"
+      SAY "=========================================================="
+      exit 99
+   end  /* Do */
+   say ""
+   say "==============================================================="
+   say Date() Time() "CF_DIR '"OldFilePattern"' '"NewDir"'"
+   say "==============================================================="
+   say "Confronta i files vecchi '"OldFilePattern"'"
+   say " con quelli della nuova directory '"NewDir"'"
+   say "==============================================================="
+   say ""
+   call RxFuncAdd 'SysFileTree', 'RexxUtil', 'SysFileTree'
+
+   Drive1 = filespec("Drive",OldFilePattern)
+   Name1 =  filespec("Name",OldFilePattern)
+   OldPath =  Drive1""filespec("Path",OldFilePattern)
+   /* say "Name1 = " Name1 "OldPath=" OldPath */
+   parse upper VALUE Name1 WITH FName '.' FExt
+   NewFilePattern = NewDir"\"Fname"."FExt
+   /* say "NewFilePattern=" NewFilePattern */
+   call SysFileTree OldFilePattern , Old , "FO"
+   call SysFileTree NewFilePattern , New , "FO"
+   say Old ": Ho "Old.0 "files del tipo" OldFilePattern
+   say New ": Ho "New.0 "files del tipo" NewFilePattern
+   say ""
+
+   do i= 1 to Old.0
+     Full =  filespec("Name",Old.i)
+     file2 = NewDir"\"Full
+     /* say "File2 = " File2 */
+     if (esiste(file2)= "") then say "Il file" Old.i "e' stato cancellato"
+   end
+   do i= 1 to New.0
+     Full =  filespec("Name",New.i)
+     file2 = OldPath""Full
+     /* say "File2 (b) = " File2 */
+     if (esiste(file2)= "") then do 
+        say "Il file" New.i "e' nuovo"
+     end
+     else do
+        if (Different(New.i,file2)) then say "I files" File2 "e" New.i "sono differenti"
+     end  
+   end
+
+exit 0
+
+Esiste:
+ return stream(arg(1),'c','query exists') 
+Size:
+ return stream(arg(1),'c','query size')
+Different:
+"@MYCOMP " arg(1) arg(2)
+Result = Rc
+return result
+

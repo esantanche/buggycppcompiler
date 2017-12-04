@@ -1,0 +1,16 @@
+@setlocal
+set TRACECIRCOLARE=15000000
+set MAXASSERT=1000
+set MYALLOC_TRACE_TIME=36000
+set ALL_MEM_TRACE=SI
+set MOTORE_MYALLOCTRC_NUMREQ=4000
+stress 08 11 1996 08 00 0 0 20000 0
+@if errorlevel 1 goto fine
+@echo Premere un tasto per ricoprire i risultati del precedente run, Ctrl-C per finire
+@pause
+del stress1.log
+ren stress.log stress1.log
+del stress1.trc
+ren stress.trc stress1.trc
+:fine
+@endlocal

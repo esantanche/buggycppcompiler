@@ -1,0 +1,278 @@
+
+BIT FIELDS IMPLEMENTATION DIFFERENCES BETWEEN OS/2 AND WINDOWS
+VERSIONS OF THE VISUAL AGE COMPILER
+
+The following program show differences between OS/2 and Windows
+versions of several structures composed by bit fields
+
+//----------------------------------------------------------------------------
+// begin of PROVAMI.CPP
+//----------------------------------------------------------------------------
+
+#include "stdio.h"
+#include "conio.h"
+#include <windows.h>
+
+typedef unsigned BIT;
+
+FILE * Fprova;
+
+#define TRACERAPIDA(stringa)  \
+   Fprova = fopen("PROVAMI.TRC", "a"); \
+   fprintf(Fprova, "%s\n", stringa);        \
+   fclose(Fprova);
+
+#pragma pack (1)
+
+typedef struct _PROVA01 {
+   BIT Prima   : 6;
+   BIT Seconda : 6;
+   BIT Terza   : 4;
+} PROVA01;
+
+#pragma pack (1)
+
+typedef struct _PROVA02 {
+   BIT Prima   : 12;
+   BIT Seconda : 12;
+   BIT Terza   : 12;
+} PROVA02;
+
+#pragma pack (1)
+
+typedef struct _PROVA03 {
+   BIT Prima   : 28;
+   BIT Seconda : 28;
+   BIT Terza   : 28;
+} PROVA03;
+
+#pragma pack (1)
+
+typedef struct _PROVA04 {
+   BIT Prima1   : 14;
+   BIT Prima2   : 14;
+   BIT Seconda1 : 14;
+   BIT Seconda2 : 14;
+   BIT Terza1   : 14;
+   BIT Terza2   : 14;
+} PROVA04;
+
+#pragma pack (1)
+
+typedef struct _PROVA05 {
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  TipoStazione           : 3 ;
+} PROVA05;
+
+#pragma pack (1)
+
+typedef struct _PROVA06 {
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  TipoStazione           : 3 ;
+   BIT  ImpiantoCommerciale    :17 ;
+} PROVA06;
+
+#pragma pack (1)
+
+typedef struct _PROVA07 {
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  TipoStazione           : 3 ;
+   BIT  ImpiantoCommerciale    :17 ;
+   BIT  Fittizia               : 1 ;
+   BIT  IstatRegione           : 5 ;
+   BIT  TariffaRegione         : 5 ;
+   BIT  Prima_Estensione       : 5 ;
+   BIT  Seconda_Estensione     : 5 ;
+   BIT  Terza_Estensione       : 5 ;
+   BIT  StazioneTraMarCum      : 1 ;
+} PROVA07;
+
+#pragma pack (1)
+
+typedef struct _PROVA08 {
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  TipoStazione           : 3 ;
+   BIT  ImpiantoCommerciale    :17 ;
+   BIT  Fittizia               : 1 ;
+   BIT  IstatRegione           : 5 ;
+   BIT  TariffaRegione         : 5 ;
+   BIT  Prima_Estensione       : 5 ;
+   BIT  Seconda_Estensione     : 5 ;
+   BIT  Terza_Estensione       : 5 ;
+   BIT  StazioneTraMarCum      : 1 ;
+   BIT  CodiceCCR              :17 ;
+} PROVA08;
+
+#pragma pack (1)
+
+typedef struct _PROVA09 {
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  TipoStazione           : 3 ;
+   BIT  ImpiantoCommerciale    :17 ;
+   BIT  Fittizia               : 1 ;
+   BIT  IstatRegione           : 5 ;
+   BIT  TariffaRegione         : 5 ;
+   BIT  Prima_Estensione       : 5 ;
+   BIT  Seconda_Estensione     : 5 ;
+   BIT  Terza_Estensione       : 5 ;
+   BIT  StazioneTraMarCum      : 1 ;
+   BIT  CodiceCCR              :17 ;
+   BIT  CodiceInstradamentoCvb :10 ;
+} PROVA09;
+
+#pragma pack (1)
+
+typedef struct _PROVA10 {
+   BIT  CodiceCCR              :17 ;
+   BIT  IstatRegione           : 5 ;
+   BIT  TariffaRegione         : 5 ;
+   BIT  Prima_Estensione       : 5 ;
+   BIT  CCRCumulativo1         :17 ;
+   BIT  Seconda_Estensione     : 5 ;
+   BIT  Terza_Estensione       : 5 ;
+   BIT  TipoStazione           : 3 ;
+   BIT  StazioneCumulativo     : 1 ;
+   BIT  StazioneFs             : 1 ;
+   BIT  ImpiantoCommerciale    :17 ;
+   BIT  CodiceInstradamentoCvb :10 ;
+   BIT  estera                 : 1 ;
+   BIT  Aperta                 : 1 ;
+   BIT  vendibile              : 1 ;
+   BIT  Fittizia               : 1 ;
+   BIT  StazioneTraMarCum      : 1 ;
+} PROVA10;
+
+#pragma pack (1)
+
+typedef struct _PROVA11 {
+   long  intero;
+   char  pippo;
+   long  intero2;
+} PROVA11;
+
+
+int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+                   LPSTR lpszCmdLine, int nCmdShow)
+{
+   char cMsg[100];
+
+   sprintf(cMsg, "sizeof(PROVA01)=%d", sizeof(PROVA01));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA02)=%d", sizeof(PROVA02));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA03)=%d", sizeof(PROVA03));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA04)=%d", sizeof(PROVA04));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA05)=%d", sizeof(PROVA05));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA06)=%d", sizeof(PROVA06));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA07)=%d", sizeof(PROVA07));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA08)=%d", sizeof(PROVA08));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA09)=%d", sizeof(PROVA09));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA10)=%d", sizeof(PROVA10));
+   TRACERAPIDA(cMsg);
+   sprintf(cMsg, "sizeof(PROVA11)=%d", sizeof(PROVA11));
+   TRACERAPIDA(cMsg);
+
+   return 0;
+}
+
+//----------------------------------------------------------------------------
+// end of PROVAMI.CPP
+//----------------------------------------------------------------------------
+
+The OS/2 version of the PROVAMI.CPP program has the same
+source of the Windows version with the exception of the
+windows.h include, not present in the OS/2 version, and the
+main program declaration than, for the OS/2 version is:
+int main(int argc, char * argv[])
+
+
+The file PROVAMI.TRC has the following contents if compiling
+with VisualAge for Windows:
+
+sizeof(PROVA01)=4
+sizeof(PROVA02)=8
+sizeof(PROVA03)=12
+sizeof(PROVA04)=12
+sizeof(PROVA05)=4
+sizeof(PROVA06)=4
+sizeof(PROVA07)=8
+sizeof(PROVA08)=12
+sizeof(PROVA09)=12
+sizeof(PROVA10)=12
+sizeof(PROVA11)=9
+
+while has the following contents if compiling with VisualAge
+for OS/2:
+
+sizeof(PROVA01)=2
+sizeof(PROVA02)=5
+sizeof(PROVA03)=11
+sizeof(PROVA04)=11
+sizeof(PROVA05)=1
+sizeof(PROVA06)=4
+sizeof(PROVA07)=7
+sizeof(PROVA08)=9
+sizeof(PROVA09)=10
+sizeof(PROVA10)=12
+sizeof(PROVA11)=9
+
+
+This is the makefile used (same for OS/2 and Winodws):
+
+# makefile
+# Created by IBM WorkFrame/2 MakeMake at 15:55:32 on 06/13/97
+#
+# The actions included in this make file are:
+#  Compile
+#  Link
+
+.SUFFIXES:
+
+.all: \
+    .\ProvVa.exe
+
+.\Provami2.obj: \
+    C:\D\ProvVA\Provami2.CPP \
+    {C:\D\ProvVA;$(INCLUDE);}stdio.h \
+    {C:\D\ProvVA;$(INCLUDE);}conio.h
+    @echo " Compile "
+    icc.exe /DOKTRACE /Sp1 /Ti /Fo".\%|fF.obj" /C C:\D\ProvVA\Provami2.CPP
+
+.\ProvVa.exe: \
+    .\Provami2.obj
+    @echo " Link "
+    icc.exe @<<
+     /B" /de"
+     /FeProvVa.exe 
+     .\Provami2.obj
+<<
+
+
+

@@ -1,0 +1,17 @@
+/* Controllo generale dei moduli RES */
+ARG Modulo
+env = 'OS2ENVIRONMENT'
+TestRoot = value(TEST_ROOT,,env)
+TrueTarget = value(TRUE_TARGET,,env)
+ItgDrive = value(ITG_DRIVE,,env)
+if value(TEST,,env) = 'SI' then BNDDIR=TestRoot"\PSQL"
+                           else BNDDIR=TrueTarget"\GENERALE\ISTALL.100"
+say " RESVFY " modulo
+if Size(ItgDrive"\WRK\"Modulo".RES") == 0 then do
+  say "camcellazione "modulo".RES di dimensione 0 (situazione non corretta)"
+  "del "ItgDrive"\WRK\"Modulo".RES" 
+end
+exit 0
+Size:
+ return stream(arg(1),'c','query size')
+

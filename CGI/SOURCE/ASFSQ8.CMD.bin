@@ -1,0 +1,1 @@
+nmake -f asfsq8.mak asfsq8.dll

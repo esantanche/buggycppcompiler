@@ -1,0 +1,5 @@
+@set Fai2 =Call C3 RUN
+%Fai2% ft_step2  
+%Fai2% ft_step3  
+%Fai2% ml_step5  
+

@@ -1,0 +1,26 @@
+/***********************************************/
+/* Filtraggio selettivo output di stress       */
+/* Filtra l' output di STRESS per ottenere     */
+/* un file di prova con i varii casi anomali   */
+/* Parte dal .TRC                              */
+/***********************************************/
+arg filein
+
+do while lines(FileIn) > 0
+   Linea = LineIN(FileIn)
+   P1 = Pos("=>",Linea)  
+   if P1 > 0 then do 
+      P2 = Pos("Main:",Linea)
+      if P2 > 0 then do
+         Tok1 = substr(Linea,P2 + 5, (P1 - P2 -5))
+         Tok2 = substr(Linea,P1 + 2)
+         /* say "Da" Tok1 "A" Tok2 */
+      end  /* Do */
+   end  /* Do */
+   P1 = Pos( "File sorgente:" ,Linea)  
+   if P1 > 0 then do 
+      Tok3 = substr(Linea,P1 + 15)
+      say left(Tok1,5,' ') left(Tok2,5,' ') "; Genera errore @" Tok3
+   end  /* Do */
+end
+

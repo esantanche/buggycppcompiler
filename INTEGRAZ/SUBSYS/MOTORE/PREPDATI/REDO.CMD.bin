@@ -1,0 +1,66 @@
+@setlocal
+@if NOT %1. == . goto hoparm
+@echo **********************
+@echo Fornire il parametro!
+@echo **********************
+@echo Premere Ctrl-C oppure invio per continuare
+call BEEP
+pause
+:HOPARM
+@set TRACELEVEL=0
+@if NOT %2. == . set TRACELEVEL=%2
+@rem set OK_DMPGET=SI
+@echo ************************* 
+@echo impostato tracelevel a: %TRACELEVEL%
+@echo ************************* 
+set IDLE_PREPDATI=SI
+@set Fai2=Call C3NODBG
+@set Fai=Call C3NODBG RUN
+@goto start
+:start                      
+@del e:\motore1\prepdati\redo.lst
+rem    call newmot      | see2 e:\motore1\prepdati\redo.lst CONCAT
+:topologia
+goto  nuovo_orario
+rem le seguenti chiamate per rigenerare l' archivio stazioni
+cd \integraz\subsys\motore\prepdati
+call redo.bat    | see2 e:\motore1\prepdati\redo.lst CONCAT
+%Fai2% fp_uno    | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% fp_due    | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% fp_tre    | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+:nuovo_orario
+rem da qui in poi per ogni nuovo orario
+:OK1
+%Fai2% ft_stepA %1 | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ft_stepB  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ft_stepC  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ft_stepD  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+:internal
+rem da qui in poi il caricamento delle strutture interne del motore
+%Fai2% ml_step1  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step2  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step3  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step4  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step5  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step6  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_step7  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+%Fai2% ml_fine  | see2 e:\motore1\prepdati\redo.lst CONCAT
+@if exist bad.bad goto BAD
+goto fine
+:BAD
+call BEEP
+:fine

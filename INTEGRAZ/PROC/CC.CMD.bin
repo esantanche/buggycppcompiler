@@ -1,0 +1,17 @@
+@echo off
+@if %EXT_CFG%. == . set EXT_CFG=CFG
+if exist %1.c goto TC
+if exist %1.cPP goto TCPP
+if exist %1 goto T
+echo Non identificato %1
+goto fine
+:TCPP
+bcc +%ITG_DRIVE%\integraz\proc\sipax.%ext_cfg% -c  %2 %3 %4 %5 %6 %1.CPP
+goto fine
+:TC
+bcc +%ITG_DRIVE%\integraz\proc\sipax.%ext_cfg% -c  %2 %3 %4 %5 %6 %1.C
+goto fine
+:T
+bcc +%ITG_DRIVE%\integraz\proc\sipax.%ext_cfg% -c  %2 %3 %4 %5 %6 %1
+:FINE
+

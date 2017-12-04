@@ -1,0 +1,14 @@
+/* invocare con : lecho2 PATH files */
+arg Path Files
+   if substr(Path,1,1) == '-' | substr(Path,1,1) == '+' then 
+      Sep ="&"   /* File per TLIB */
+   else 
+      Sep = "+"  /* File per TLINK    */
+
+   Count = Words(Files)
+   do i=1 to Count
+     Nom = Word(Files,i)
+     say Path"\"Nom Sep
+   end
+   exit 0
+

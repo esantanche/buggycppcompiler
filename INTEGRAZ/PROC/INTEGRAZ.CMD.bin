@@ -1,0 +1,43 @@
+@echo off
+echo ---------------------------------------------------
+echo Procedura di compilazione del sottosistema INTEGRAZIONE
+echo ---------------------------------------------------
+echo INTEGRAZ %1 %2 %3 %4 %5 %6 %7
+echo .
+setlocal
+%ITG_DRIVE%
+cd \INTEGRAZ\SUBSYS\INTEGRAZ\SOURCE
+set MAIN1= FSSIPAX FSIMPIA FSCLIENT ACS3EHAP PV_PROF PV_PROFI SPXSHELL SX_SHELL FSWAIT FSVERTX SX_SHUT
+set MAIN2= fssipax fsimpia fsclient acs3ehap pv_prof pv_profi spxshell sx_shell fswait fsvertx sx_shut
+
+if %1. == ALL. goto all
+if %1. == all. goto all
+if %1. == . goto NONSO
+:LOOP
+if %1. == . goto fine
+set OK=
+for %%a in ( %MAIN1% )  do if %1. == %%a. set OK=SI
+for %%a in ( %MAIN2% )  do if %1. == %%a. set OK=SI
+if %OK%. == . GOTO NONSO
+
+call mk %1
+@echo off
+shift
+goto LOOP
+
+:all
+echo START >%ITG_DRIVE%\INTEGRAZ\PROC\RESULT\INTEGRAZ.ALL
+for %%a in ( %MAIN1% )  do call mk %%a
+goto fine
+
+rem  **************************************************
+REM  NONSO
+rem  **************************************************
+:NONSO
+echo 
+echo Non indentificato target %1. Valori corretti sono %MAIN1%
+echo
+shift
+goto LOOP
+:FINE
+
